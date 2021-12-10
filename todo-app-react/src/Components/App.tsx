@@ -7,14 +7,10 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header>
-        <Header />
-      </header>
-      <main>
-        <ItemViewer />
-        <ItemForm />
-      </main>
+    <div className="App theme-light">
+      <Header />
+      <ItemViewer />
+      <ItemForm />
     </div>
   );
 }

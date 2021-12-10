@@ -1,0 +1,14 @@
+.Header
+{
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+}
+
+@media (min-width: 45em)
+{
+    .Header
+    {
+        grid-row: 1 / 2;
+        grid-column: 1 / 3;
+    }
+}

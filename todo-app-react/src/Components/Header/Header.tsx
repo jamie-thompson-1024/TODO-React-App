@@ -1,14 +1,14 @@
 import Settings from './Settings';
 
-import 'Header.css';
+import './Header.css';
 
 function Header()
 {
     return (
-        <div className="Header">
+        <header className="Header">
             <h1>Header</h1>
             <Settings />
-        </div>
+        </header>
     )
 }
 

@@ -1,7 +1,7 @@
 import Item from './Item';
 import ItemModel from '../../Model/Item';
 
-import 'ItemList.css';
+import './ItemList.css';
 
 function ItemList()
 {

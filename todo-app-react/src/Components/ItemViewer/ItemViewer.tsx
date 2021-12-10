@@ -1,7 +1,7 @@
 import SearchBar from './SearchBar';
 import ItemList from './ItemList';
 
-import 'ItemViewer.css';
+import './ItemViewer.css';
 
 function ItemViewer()
 {
