@@ -24,6 +24,12 @@ function ItemForm()
         setTags(tags.map((e) => e));
     }
 
+    function submitItem()
+    {
+
+        setTags([]);
+    }
+
     useEffect(() => {
         if(tagsRef.current)
         {
@@ -56,7 +62,9 @@ function ItemForm()
                 className="ItemForm-tagInput" 
                 ref={tagsRef} 
                 type="text"></input>
-            <button className="ItemForm-submitInput"> Add Item </button>
+            <button 
+                className="ItemForm-submitInput" 
+                onClick={() => { submitItem(); }}> Add Item </button>
         </div>
     )
 }
