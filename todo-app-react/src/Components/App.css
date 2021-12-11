@@ -9,6 +9,8 @@
   grid-template-columns: 100%;
   grid-template-rows: 5em 20em auto;
 
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--theme-foreground-text);
 }
 
 @media (min-width: 45em)
@@ -22,10 +24,10 @@
 
 .theme-light
 {
-  --theme-background-0: #888888;
-  --theme-background-1: #999999;
-  --theme-background-3: #aaaaaa;
+  --theme-background-0: #aaaaaa;
+  --theme-background-1: #bbbbbb;
+  --theme-background-3: #cccccc;
 
-  --theme-foreground-text: #333333;
+  --theme-foreground-text: #222222;
   --theme-foreground-border: #555555;
 }
