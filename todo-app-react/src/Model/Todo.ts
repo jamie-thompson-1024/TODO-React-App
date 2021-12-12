@@ -1,4 +1,6 @@
 
+import Item from './Item';
+
 const allowedChars = [
     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
@@ -15,6 +17,25 @@ interface ItemJson
     lastModifiedTime: number;
     completed: boolean;
     tags: Array<string>
+}
+
+interface SettingsJson
+{
+    theme: Theme
+}
+
+interface ChangeJson
+{
+    time: number;
+    action: ChangeAction;
+    oldValue?: Item;
+    newValue?: Item;
+}
+
+interface ChangeData
+{
+    newValue?: Item, 
+    oldValue?: Item
 }
 
 interface I_Item
@@ -55,13 +76,21 @@ enum SortOrder
 
 enum Theme
 {
-    LIGHT = 'theme-light',
-    DARK = 'theme-dark'
+    LIGHT,
+    DARK
 }
+
+const availableThemes = [
+    Theme.LIGHT,
+    Theme.DARK
+];
 
 export type {
     I_Item,
-    ItemJson
+    ItemJson,
+    SettingsJson,
+    ChangeJson,
+    ChangeData
 };
 
 export {
@@ -69,5 +98,6 @@ export {
     ChangeAction,
     SortOrder,
     Theme,
-    allowedChars
+    allowedChars,
+    availableThemes
 };
