@@ -1,4 +1,4 @@
-import { ChangeAction } from './Todo';
+import { ChangeAction, ChangeJson, ChangeData } from './Todo';
 import Item from './Item';
 
 class Change
@@ -8,7 +8,7 @@ class Change
     oldValue?: Item;
     newValue?: Item;
 
-    constructor(action: ChangeAction, data: {newValue?: Item, oldValue?: Item})
+    constructor(action: ChangeAction, data: ChangeData)
     {
         this.time = Date.now();
         this.action = action;
@@ -16,14 +16,26 @@ class Change
         this.newValue = data.newValue;
     }
 
-    static fromJson(obj: Object): Change | undefined
+    static fromJson(obj: ChangeJson): Change
     {
-        return undefined;
+        let change = new Change(
+            obj.action, 
+            {
+                oldValue: obj.oldValue, 
+                newValue: obj.newValue
+            });
+        change.time = obj.time;
+        return change;
     }
 
-    toJson(): Object
+    toJson(): ChangeJson
     {
-        return {};
+        return {
+            time: this.time,
+            action: this.action,
+            oldValue: this.oldValue,
+            newValue: this.newValue
+        };
     }
 }
 

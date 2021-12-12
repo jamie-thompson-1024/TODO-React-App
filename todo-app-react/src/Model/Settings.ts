@@ -1,4 +1,4 @@
-import { Theme } from './Todo';
+import { Theme, availableThemes, SettingsJson } from './Todo';
 
 class Settings extends EventTarget
 {
@@ -13,27 +13,34 @@ class Settings extends EventTarget
 
     setTheme(theme: Theme)
     {
-        
+        this.theme = theme;
+        this.themeChangeEvent();
     }
 
     getThemes(): Array<Theme>
     {
-        return [];
+        return availableThemes;
     }
 
     themeChangeEvent()
     {
-
+        this.dispatchEvent(
+            new CustomEvent<{theme: Theme}>('themeChange', { detail: {theme: this.theme} })
+        );
     }
 
-    static fromJson(obj: Object): Settings | undefined
+    static fromJson(obj: SettingsJson): Settings
     {
-        return undefined;
+        let settings = new Settings();
+        settings.theme = obj.theme;
+        return settings;
     }
 
-    toJson(): Object
+    toJson(): SettingsJson
     {
-        return {};
+        return {
+            theme: this.theme
+        };
     }
 }
 
