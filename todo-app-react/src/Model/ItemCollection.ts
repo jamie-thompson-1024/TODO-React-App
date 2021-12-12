@@ -1,4 +1,4 @@
-import { I_Item, SortOrder, ValidationMessage } from './model';
+import { I_Item, SortOrder, ValidationMessage } from './Todo';
 import Item from './Item';
 import Change from './Change';
 

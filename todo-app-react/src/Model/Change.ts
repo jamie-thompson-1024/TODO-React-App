@@ -1,4 +1,4 @@
-import { ChangeAction } from './model';
+import { ChangeAction } from './Todo';
 import Item from './Item';
 
 class Change

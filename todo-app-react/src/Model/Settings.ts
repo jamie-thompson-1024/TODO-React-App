@@ -1,4 +1,4 @@
-import { Theme } from './model';
+import { Theme } from './Todo';
 
 class Settings extends EventTarget
 {
