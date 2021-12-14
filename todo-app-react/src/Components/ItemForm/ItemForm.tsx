@@ -18,6 +18,7 @@ function ItemForm()
         {
             tags.push(tagsRef.current.value);
             setTags(tags.map((e) => e));
+            tagsRef.current.value = '';
         }
     }
 
@@ -29,13 +30,17 @@ function ItemForm()
 
     function submitItem()
     {
-        if(nameRef.current && descRef.current)
+        if(nameRef.current && descRef.current && tagsRef.current)
         {
             let msg = TodoStorage.itemCollection.createItem(
                 nameRef.current.value, descRef.current.value, tags.map((e) => e)
             );
             console.log(msg);
             setTags([]);
+
+            tagsRef.current.value = '';
+            descRef.current.value = '';
+            nameRef.current.value = '';
         }
     }
 

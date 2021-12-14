@@ -15,11 +15,12 @@ class ItemCollection extends EventTarget implements I_Item
     filter: string = '';
     order: SortOrder = SortOrder.ASC_DATE_ADDED;
 
+    /*
     constructor()
     {
         super();
-        this.setSearchParams('', SortOrder.ASC_DATE_ADDED);
     }
+    */
 
     static fromJson(obj?: ItemCollectionJson): ItemCollection | undefined
     {
@@ -49,6 +50,8 @@ class ItemCollection extends EventTarget implements I_Item
             .filter((change) => { 
                 return change; })) as Change[];
         
+        itemCol.setSearchParams('', SortOrder.ASC_DATE_ADDED);
+
         return itemCol;
     }
 
@@ -120,6 +123,7 @@ class ItemCollection extends EventTarget implements I_Item
         ));
 
         this.changeEvent(item);
+        this.selectItem(item.ID);
 
         return errorList;
     }
@@ -137,12 +141,6 @@ class ItemCollection extends EventTarget implements I_Item
         switch(change.action)
         {
             case ChangeAction.ADD_ITEM:
-                if(change.newValue)
-                {
-                    let item = this.getItem(change.newValue.ID);
-                    if(!item)
-                        break;
-                }
                 break;
             case ChangeAction.ADD_TAG:
                 break;
@@ -196,10 +194,12 @@ class ItemCollection extends EventTarget implements I_Item
         });
     }
 
-    setSearchParams(filter: string, order: SortOrder): ValidationMessage
+    setSearchParams(filter?: string, order?: SortOrder): ValidationMessage
     {
-        this.filter = filter;
-        this.order = order;
+        if(filter)
+            this.filter = filter;
+        if(order)
+            this.order = order;
 
         this.searchItems = this.items.filter((item) => {
             return item.name.includes(this.filter);
@@ -380,6 +380,7 @@ class ItemCollection extends EventTarget implements I_Item
     // === Events ===
     changeEvent(item: Item)
     {
+        this.setSearchParams();
         this.dispatchEvent(
             new CustomEvent<{item: Item}>('itemChange', { detail: { item } })
         );

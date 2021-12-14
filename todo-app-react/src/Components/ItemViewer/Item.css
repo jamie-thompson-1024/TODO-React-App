@@ -1,0 +1,44 @@
+.Item
+{
+    background-color: var(--theme-background-2);
+}
+
+.Item-bar
+{
+    padding: 5px 15px 5px 15px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Item-expand
+{
+    margin: 0 10px 0 10px;
+    padding: 5px 5px 5px 5px;
+
+    border-top: 1px solid var(--theme-foreground-border);
+}
+
+.Item-state
+{
+    width: 2em;
+    height: 2em;
+
+    border-radius: 2em;
+}
+
+.Item-complete
+{
+    background-color: green;
+}
+
+.Item-incomplete
+{
+    background-color: red;
+}
+
+.Item-hidden
+{
+    display: none;
+}

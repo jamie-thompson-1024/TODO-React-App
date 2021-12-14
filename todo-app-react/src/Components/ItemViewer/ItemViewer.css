@@ -2,6 +2,11 @@
 {
     grid-row: 3 / 4;
     grid-column: 1 / 2;
+
+    margin: 5px;
+    padding: 5px;
+
+    background-color: var(--theme-background-1);
 }
 
 @media (min-width: 45em)
