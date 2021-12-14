@@ -1,6 +1,6 @@
 .Item
 {
-    background-color: var(--theme-background-2);
+    background-color: var(--theme-background-1);
 }
 
 .Item-bar
@@ -28,7 +28,46 @@
 
 .Item-options-del
 {
+
+}
+
+.Item-tags
+{
+    box-sizing: border-box;
+    width: 100%;
+
+    padding: 5px;
+
+    min-height: calc(1em + 5px);
+
+    display: flex;
+    flex-wrap: wrap;
+
+    row-gap: 3px;
+    column-gap: 3px;
+}
+
+.Item-tag
+{
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
     
+    column-gap: 10px;
+
+    width: fit-content;
+
+    border-radius: 999px;
+    padding: 3px 7px 3px 7px;
+
+    background-color: var(--theme-background-2);
+}
+
+.Item-tag-del
+{
+    color: red;
+    cursor: pointer;
 }
 
 .Item-expand
