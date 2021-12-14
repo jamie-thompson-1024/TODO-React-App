@@ -10,6 +10,25 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    cursor: pointer;
+}
+
+.Item-select
+{
+    border-radius: 5px;
+    border: 2px solid var(--theme-select-border);
+}
+
+.Item-options
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.Item-options-del
+{
+    
 }
 
 .Item-expand
