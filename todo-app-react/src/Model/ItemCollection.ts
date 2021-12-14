@@ -76,6 +76,8 @@ class ItemCollection extends EventTarget implements I_Item
             return ValidationMessage.OK;
         }
 
+        this.selected = -1;
+        this.selectEvent();
         return ValidationMessage.DOESNT_EXIST;
     }
     
@@ -393,10 +395,10 @@ class ItemCollection extends EventTarget implements I_Item
         );
     }
 
-    selectEvent(item: Item)
+    selectEvent(item?: Item)
     {
         this.dispatchEvent(
-            new CustomEvent<{item: Item}>('itemSelect', { detail: { item } })
+            new CustomEvent<{item?: Item}>('itemSelect', { detail: { item } })
         );
     }
 

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import TodoContext from '../TodoContext';
 import './ItemForm.css';
 
@@ -12,45 +12,39 @@ function ItemForm()
 
     const TodoStorage = useContext(TodoContext);
 
-    function addTag()
-    {
+    const addTag = useCallback(() => {
         if(tagsRef.current)
         {
             tags.push(tagsRef.current.value);
             setTags(tags.map((e) => e));
             tagsRef.current.value = '';
         }
-    }
+    }, [tagsRef, tags]);
 
-    function removeTag(index: number)
-    {
+    const removeTag = useCallback((index: number) => {
         tags.splice(index, 1);
         setTags(tags.map((e) => e));
-    }
+    }, [tags]);
 
-    function submitItem()
-    {
+    const submitItem = useCallback(() => {
         if(nameRef.current && descRef.current && tagsRef.current)
         {
             let msg = TodoStorage.itemCollection.createItem(
                 nameRef.current.value, descRef.current.value, tags.map((e) => e)
             );
             console.log(msg);
-            setTags([]);
 
+            setTags([]);
             tagsRef.current.value = '';
             descRef.current.value = '';
             nameRef.current.value = '';
         }
-    }
+    }, [nameRef, descRef, tagsRef, TodoStorage, tags]);
 
     useEffect(() => {
         if(tagsRef.current)
-        {
-            tagsRef.current.onchange = () => { addTag(); }
-        }
-    // eslint-disable-next-line
-    }, [tags]);
+            tagsRef.current.onchange = addTag;
+    }, [tagsRef, addTag]);
 
     return (
         <div className="ItemForm">

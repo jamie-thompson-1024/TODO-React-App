@@ -25,10 +25,11 @@ class TodoStorage extends EventTarget
         try
         {
             this.settings = Settings.fromJson(
-                JSON.parse(localStorage['todo-settings'])) ?? this.settings;
+                JSON.parse(localStorage['todo-settings'])) ?? new Settings();
         }
         catch
         {
+            this.settings = new Settings();
             doSave = true;
         }
 
@@ -37,10 +38,11 @@ class TodoStorage extends EventTarget
         try
         {
             this.itemCollection = ItemCollection.fromJson(
-                JSON.parse(localStorage['todo-collection'])) ?? this.itemCollection;
+                JSON.parse(localStorage['todo-collection'])) ?? new ItemCollection();
         }
         catch
         {
+            this.itemCollection = new ItemCollection();
             doSave = true;
         }
 

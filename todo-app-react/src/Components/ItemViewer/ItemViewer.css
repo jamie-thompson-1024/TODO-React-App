@@ -5,6 +5,8 @@
 
     margin: 5px;
     padding: 5px;
+    
+    overflow-y: auto;
 
     background-color: var(--theme-background-1);
 }

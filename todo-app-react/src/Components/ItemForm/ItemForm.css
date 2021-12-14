@@ -60,12 +60,13 @@
     border-radius: 999px;
     padding: 3px 7px 3px 7px;
 
-    background-color: var(--theme-background-3);
+    background-color: var(--theme-background-2);
 }
 
 .ItemForm-tag-del
 {
     color: red;
+    cursor: pointer;
 }
 
 .ItemForm-tagInput

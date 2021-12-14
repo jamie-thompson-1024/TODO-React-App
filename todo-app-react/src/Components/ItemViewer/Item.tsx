@@ -1,7 +1,11 @@
+import { useCallback, useContext, useEffect, useState } from 'react';
+import TodoContext from '../TodoContext';
+
 import './Item.css';
 
 interface ItemProps
 {
+    ID: number,
     name: string,
     desc: string,
     tags: string[],
@@ -10,11 +14,33 @@ interface ItemProps
 
 function Item(props: ItemProps)
 {
-    const expand = true;
+    const itemCollection = useContext(TodoContext).itemCollection;
+    const [expand, setExpand] = useState(false);
+
+    const deleteThis = useCallback(() => {
+        if(itemCollection.selected === props.ID)
+            itemCollection.removeItem();
+    }, [itemCollection, props.ID]);
+
+    const selectResponse = useCallback(() => {
+        setExpand(itemCollection.selected === props.ID);
+    }, [itemCollection, props.ID]);
+
+    const toggleThis = useCallback(() => {
+        if(itemCollection.selected === props.ID)
+            itemCollection.selectItem(-1);
+        else
+            itemCollection.selectItem(props.ID);
+    }, [itemCollection, props.ID]);
+
+    useEffect(() => {
+        itemCollection.addEventListener('itemSelect', selectResponse);
+        return () => { itemCollection.removeEventListener('itemSelect', selectResponse); }
+    }, [itemCollection, selectResponse]);
 
     return (
-        <div className="Item">
-            <div className="Item-bar">
+        <div className={"Item" + ( expand ? " Item-select" : "" )}>
+            <div className="Item-bar" onClick={toggleThis}>
                 <h3 className="Item-name">{ props.name }</h3>
                 <div className={"Item-state" + ( props.state ? " Item-complete" : " Item-incomplete")}></div>
             </div>
@@ -30,6 +56,11 @@ function Item(props: ItemProps)
                             )
                         })
                     }
+                </div>
+                <div className="Item-options">
+                    <button className="Item-options-del" onClick={deleteThis}>
+                        Delete
+                    </button>
                 </div>
             </div>
         </div>

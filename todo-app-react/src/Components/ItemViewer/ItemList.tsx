@@ -2,19 +2,23 @@ import Item from './Item';
 import ItemModel from '../../Model/Item';
 import TodoContext from '../TodoContext';
 
-import { useContext } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 
 import './ItemList.css';
 
 function ItemList()
 {
     const itemCollection = useContext(TodoContext).itemCollection;
-    let items = itemCollection.getSearchItems();
-    console.log(itemCollection);
-    console.log(items);
+    const [items, setItems] = useState(itemCollection.getSearchItems());
 
-    itemCollection.addEventListener('itemSearch', 
-        () => { items = itemCollection.getSearchItems(); console.log(items); });
+    const updateItems = useCallback(() => {
+        setItems(itemCollection.getSearchItems());
+    }, [itemCollection]);
+
+    useEffect(() => {
+        itemCollection.addEventListener('itemSearch', updateItems);
+        return () => { itemCollection.removeEventListener('itemSearch', updateItems); }
+    }, [itemCollection, updateItems]);
 
     return (
         <div className="ItemList">
@@ -22,6 +26,7 @@ function ItemList()
                 items.map((item: ItemModel) => {
                     return <Item 
                         key={item.ID}
+                        ID={item.ID}
                         name={item.name}
                         desc={item.description}
                         tags={item.tags}
