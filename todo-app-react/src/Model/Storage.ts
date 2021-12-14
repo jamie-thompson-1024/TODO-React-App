@@ -1,7 +1,7 @@
 import Settings from './Settings';
 import ItemCollection from './ItemCollection';
 
-class Storage extends EventTarget
+class TodoStorage extends EventTarget
 {
     settings: Settings = new Settings();
     itemCollection: ItemCollection = new ItemCollection();
@@ -9,32 +9,62 @@ class Storage extends EventTarget
     constructor()
     {
         super();
+
+        this.load();
+
+        this.itemCollection.addEventListener(
+            'itemChange', () => { this.save() });
     }
 
     load()
     {
+        let doSave = false;
 
+        if(!localStorage['todo-settings'])
+            doSave = true;
+        this.settings = Settings.fromJson(
+            JSON.parse(localStorage['todo-settings'])) ?? this.settings;
+
+        if(!localStorage['todo-collection'])
+            doSave = true;
+        this.itemCollection = ItemCollection.fromJson(
+            JSON.parse(localStorage['todo-collection'])) ?? this.itemCollection;
+            
+        if(doSave)
+            this.save();
+        
+        this.loadEvent();
     }
 
     save()
     {
+        localStorage['todo-settings'] = JSON.stringify(this.settings.toJson());
+        localStorage['todo-collection'] = JSON.stringify(this.itemCollection.toJson());
 
+        this.saveEvent();
     }
 
     wipe()
     {
+        localStorage.removeItem('todo-settings');
+        localStorage.removeItem('todo-collection');
 
+        this.load();
     }
 
     loadEvent()
     {
-
+        this.dispatchEvent(
+            new Event('load')
+        );
     }
 
     saveEvent()
     {
-
+        this.dispatchEvent(
+            new Event('save')
+        );
     }
 }
 
-export default Storage;
+export default TodoStorage;

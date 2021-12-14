@@ -29,8 +29,11 @@ class Settings extends EventTarget
         );
     }
 
-    static fromJson(obj: SettingsJson): Settings
+    static fromJson(obj?: SettingsJson): Settings | undefined
     {
+        if(!obj)
+            return undefined;
+
         let settings = new Settings();
         settings.theme = obj.theme;
         return settings;

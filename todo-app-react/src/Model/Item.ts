@@ -22,8 +22,11 @@ class Item implements I_Item
         this.tags = tags;
     }
 
-    static fromJson(obj: ItemJson): Item
+    static fromJson(obj?: ItemJson): Item | undefined
     {
+        if(!obj)
+            return undefined;
+
         let item = new Item(
             obj.ID, 
             obj.name, 
@@ -35,6 +38,13 @@ class Item implements I_Item
         item.completed = obj.completed;
 
         return item;
+    }
+
+    clone(): Item
+    {
+        let newItem = new Item(0, '', '', []);
+        Object.assign(newItem, this);
+        return newItem;
     }
 
     toJson(): ItemJson
@@ -52,10 +62,9 @@ class Item implements I_Item
 
     setName(newName: string): ValidationMessage
     {
-        if(newName.trim() === '')
-            return ValidationMessage.EMPTY;
-        if([...newName].some((char) => { return !allowedChars.includes(char); }))
-            return ValidationMessage.INVALID_CHAR;
+        let msg = Item.checkStringInput(newName);
+        if(msg != ValidationMessage.OK)
+            return msg;
         
         this.name = newName;
         this.lastModifiedTime = Date.now();
@@ -64,10 +73,9 @@ class Item implements I_Item
 
     setDesc(newDesc: string): ValidationMessage
     {
-        if(newDesc.trim() === '')
-            return ValidationMessage.EMPTY;
-        if([...newDesc].some((char) => { return !allowedChars.includes(char); }))
-            return ValidationMessage.INVALID_CHAR;
+        let msg = Item.checkStringInput(newDesc);
+        if(msg != ValidationMessage.OK)
+            return msg;
         
         this.description = newDesc;
         this.lastModifiedTime = Date.now();
@@ -83,10 +91,10 @@ class Item implements I_Item
 
     addTag(newTag: string): ValidationMessage
     {
-        if(newTag.trim() === '')
-            return ValidationMessage.EMPTY;
-        if([...newTag].some((char) => { return !allowedChars.includes(char); }))
-            return ValidationMessage.INVALID_CHAR;
+        let msg = Item.checkStringInput(newTag);
+        if(msg != ValidationMessage.OK)
+            return msg;
+
         if(this.tags.includes(newTag))
             return ValidationMessage.ALREADY_EXISTS;
 
@@ -112,6 +120,16 @@ class Item implements I_Item
             return ValidationMessage.DOESNT_EXIST;
 
         this.lastModifiedTime = Date.now();
+        return ValidationMessage.OK;
+    }
+
+    static checkStringInput(input: string): ValidationMessage
+    {
+        if(input.trim() === '')
+            return ValidationMessage.EMPTY;
+        if([...input].some((char) => { return !allowedChars.includes(char); }))
+            return ValidationMessage.INVALID_CHAR;
+
         return ValidationMessage.OK;
     }
 

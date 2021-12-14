@@ -16,13 +16,16 @@ class Change
         this.newValue = data.newValue;
     }
 
-    static fromJson(obj: ChangeJson): Change
+    static fromJson(obj?: ChangeJson): Change | undefined
     {
+        if(!obj)
+            return undefined;
+
         let change = new Change(
             obj.action, 
             {
-                oldValue: obj.oldValue, 
-                newValue: obj.newValue
+                oldValue: Item.fromJson(obj.oldValue), 
+                newValue: Item.fromJson(obj.newValue)
             });
         change.time = obj.time;
         return change;
@@ -33,8 +36,8 @@ class Change
         return {
             time: this.time,
             action: this.action,
-            oldValue: this.oldValue,
-            newValue: this.newValue
+            oldValue: this.oldValue?.toJson(),
+            newValue: this.newValue?.toJson()
         };
     }
 }

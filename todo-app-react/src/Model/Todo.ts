@@ -1,5 +1,6 @@
 
 import Item from './Item';
+import Change from './Change';
 
 const allowedChars = [
     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
@@ -19,6 +20,15 @@ interface ItemJson
     tags: Array<string>
 }
 
+interface ItemCollectionJson
+{
+    items: Array<ItemJson>;
+    selected: number;
+    changes: Array<ChangeJson>;
+    undoneChanges: Array<ChangeJson>;
+    lastID: number;
+}
+
 interface SettingsJson
 {
     theme: Theme
@@ -28,8 +38,8 @@ interface ChangeJson
 {
     time: number;
     action: ChangeAction;
-    oldValue?: Item;
-    newValue?: Item;
+    oldValue?: ItemJson;
+    newValue?: ItemJson;
 }
 
 interface ChangeData
@@ -57,7 +67,7 @@ interface I_Item
 
 enum ValidationMessage
 {
-    OK, EMPTY, INVALID_CHAR, DOESNT_EXIST, ALREADY_EXISTS
+    OK, EMPTY, INVALID_CHAR, DOESNT_EXIST, ALREADY_EXISTS, ITEM_NOT_SELECTED
 }
 
 enum ChangeAction
@@ -90,7 +100,8 @@ export type {
     ItemJson,
     SettingsJson,
     ChangeJson,
-    ChangeData
+    ChangeData,
+    ItemCollectionJson
 };
 
 export {

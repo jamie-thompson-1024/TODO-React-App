@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
+import TodoContext from '../TodoContext';
 import './ItemForm.css';
 
 function ItemForm()
@@ -8,6 +9,8 @@ function ItemForm()
     const tagsRef = useRef<HTMLInputElement>(null);
 
     const [tags, setTags] = useState<string[]>([]);
+
+    const TodoStorage = useContext(TodoContext);
 
     function addTag()
     {
@@ -26,8 +29,14 @@ function ItemForm()
 
     function submitItem()
     {
-
-        setTags([]);
+        if(nameRef.current && descRef.current)
+        {
+            let msg = TodoStorage.itemCollection.createItem(
+                nameRef.current.value, descRef.current.value, tags.map((e) => e)
+            );
+            console.log(msg);
+            setTags([]);
+        }
     }
 
     useEffect(() => {
