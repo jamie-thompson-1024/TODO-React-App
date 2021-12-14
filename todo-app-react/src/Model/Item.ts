@@ -63,7 +63,7 @@ class Item implements I_Item
     setName(newName: string): ValidationMessage
     {
         let msg = Item.checkStringInput(newName);
-        if(msg != ValidationMessage.OK)
+        if(msg !== ValidationMessage.OK)
             return msg;
         
         this.name = newName;
@@ -74,7 +74,7 @@ class Item implements I_Item
     setDesc(newDesc: string): ValidationMessage
     {
         let msg = Item.checkStringInput(newDesc);
-        if(msg != ValidationMessage.OK)
+        if(msg !== ValidationMessage.OK)
             return msg;
         
         this.description = newDesc;
@@ -92,7 +92,7 @@ class Item implements I_Item
     addTag(newTag: string): ValidationMessage
     {
         let msg = Item.checkStringInput(newTag);
-        if(msg != ValidationMessage.OK)
+        if(msg !== ValidationMessage.OK)
             return msg;
 
         if(this.tags.includes(newTag))
@@ -114,7 +114,7 @@ class Item implements I_Item
         this.tags = this.tags.filter((tag) => { 
             if(tag === oldTag)
                 doesntExistFlag = false; 
-            return tag != oldTag; });
+            return tag !== oldTag; });
 
         if(doesntExistFlag)
             return ValidationMessage.DOESNT_EXIST;

@@ -31,23 +31,23 @@ class ItemCollection extends EventTarget implements I_Item
         itemCol.selected = obj.selected;
         itemCol.lastID = obj.lastID;
 
-        itemCol.items = <Item[]>(
+        itemCol.items = (
             obj.items.map((item) => { 
                 return Item.fromJson(item); })
             .filter((item) => { 
-                return item; }));
+                return item; })) as Item[];
 
-        itemCol.changes = <Change[]>(
+        itemCol.changes = (
             obj.changes.map((change) => { 
                 return Change.fromJson(change); })
             .filter((change) => { 
-                return change; }));
+                return change; })) as Change[];
 
-        itemCol.undoneChanges = <Change[]>(
+        itemCol.undoneChanges = (
             obj.undoneChanges.map((change) => { 
                 return Change.fromJson(change); })
             .filter((change) => { 
-                return change; }));
+                return change; })) as Change[];
         
         return itemCol;
     }
@@ -84,7 +84,7 @@ class ItemCollection extends EventTarget implements I_Item
         let item = this.items.find((item) => { return item.ID === ID; });
         if(item)
         {
-            this.items = this.items.filter((f_item) => { return f_item != item });
+            this.items = this.items.filter((f_item) => { return f_item !== item });
 
             this.changes.push( new Change(
                 ChangeAction.REMOVE_ITEM,
@@ -108,7 +108,7 @@ class ItemCollection extends EventTarget implements I_Item
             errorList[i + 2] = Item.checkStringInput(tag);
         });
 
-        if(errorList.some((msg) => { return msg != ValidationMessage.OK }))
+        if(errorList.some((msg) => { return msg !== ValidationMessage.OK }))
             return errorList;
         
         let item = new Item( this.createID(), name, desc, tags );
@@ -142,7 +142,6 @@ class ItemCollection extends EventTarget implements I_Item
                     let item = this.getItem(change.newValue.ID);
                     if(!item)
                         break;
-                    this.items
                 }
                 break;
             case ChangeAction.ADD_TAG:
@@ -226,6 +225,8 @@ class ItemCollection extends EventTarget implements I_Item
                         return 1;
                     if(a.name.toUpperCase() > b.name.toUpperCase())
                         return -1;
+                    return 0;
+                default:
                     return 0;
             }
         });

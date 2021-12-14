@@ -22,14 +22,28 @@ class TodoStorage extends EventTarget
 
         if(!localStorage['todo-settings'])
             doSave = true;
-        this.settings = Settings.fromJson(
-            JSON.parse(localStorage['todo-settings'])) ?? this.settings;
+        try
+        {
+            this.settings = Settings.fromJson(
+                JSON.parse(localStorage['todo-settings'])) ?? this.settings;
+        }
+        catch
+        {
+            doSave = true;
+        }
 
         if(!localStorage['todo-collection'])
             doSave = true;
-        this.itemCollection = ItemCollection.fromJson(
-            JSON.parse(localStorage['todo-collection'])) ?? this.itemCollection;
-            
+        try
+        {
+            this.itemCollection = ItemCollection.fromJson(
+                JSON.parse(localStorage['todo-collection'])) ?? this.itemCollection;
+        }
+        catch
+        {
+            doSave = true;
+        }
+
         if(doSave)
             this.save();
         
