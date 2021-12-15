@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState, useRef } from 'react';
 import TodoContext from '../TodoContext';
 
 import './Item.css';
@@ -26,20 +26,32 @@ function Item(props: ItemProps)
     const [expand, setExpand] = useState(false);
     const [editMode, setEditMode] = useState(EditMode.NONE);
 
-    const setName = useCallback((newName: string) => {
+    const tagsRef = useRef<HTMLInputElement>(null);
+    const nameRef = useRef<HTMLInputElement>(null);
+    const descRef = useRef<HTMLInputElement>(null);
 
-    }, []);
-    const setDesc = useCallback((newDesc: string) => {
+    const setName = useCallback(() => {
+        if(itemCollection.selected === props.ID && editMode === EditMode.TITLE && nameRef.current)
+            itemCollection.setName(nameRef.current.value);
+        setEditMode(EditMode.NONE);
+    }, [itemCollection, props.ID, editMode, nameRef]);
 
-    }, []);
+    const setDesc = useCallback(() => {
+        if(itemCollection.selected === props.ID && editMode === EditMode.DESC && descRef.current)
+            itemCollection.setDesc(descRef.current.value);
+        setEditMode(EditMode.NONE);
+    }, [itemCollection, props.ID, editMode, descRef]);
 
-    const addTag = useCallback((newTag: string) => {
-
-    }, []);
+    const addTag = useCallback(() => {
+        if(itemCollection.selected === props.ID && editMode === EditMode.TAGS && tagsRef.current)
+            itemCollection.addTag(tagsRef.current.value);
+        console.log("add Tag");
+    }, [itemCollection, props.ID, editMode, tagsRef]);
 
     const removeTag = useCallback((oldTag: string) => {
-
-    }, []);
+        if(itemCollection.selected === props.ID && editMode === EditMode.TAGS)
+            itemCollection.removeTag(oldTag);
+    }, [itemCollection, props.ID, editMode]);
 
     const deleteThis = useCallback(() => {
         if(itemCollection.selected === props.ID)
@@ -65,35 +77,95 @@ function Item(props: ItemProps)
 
     useEffect(() => {
         itemCollection.addEventListener('itemSelect', selectResponse);
-        return () => { itemCollection.removeEventListener('itemSelect', selectResponse); }
-    }, [itemCollection, selectResponse]);
+        let tagRefc = tagsRef.current;
+        let nameRefc = nameRef.current;
+        let descRefc = descRef.current;
+        
+        if(tagRefc) tagRefc.onchange = addTag;
+        if(nameRefc) nameRefc.onchange = setName;
+        if(descRefc) descRefc.onchange = setDesc;
+        return () => { 
+            itemCollection.removeEventListener('itemSelect', selectResponse);
+        }
+    }, [itemCollection, selectResponse, tagsRef, nameRef, descRef, addTag, setName, setDesc]);
 
     return (
         <div className={"Item" + ( expand ? " Item-select" : "" )}>
             <div className="Item-bar" onClick={toggleThisSelect}>
-                <h3 className="Item-name">{ props.name }</h3>
+                <div className="Item-nameContainer">
+                    { (() => { if(editMode === EditMode.TITLE && expand) {
+                        return (<input 
+                            className="Item-tagInput" 
+                            ref={ nameRef } 
+                            type="text"
+                            defaultValue={props.name}></input>);
+                    }else{
+                        return (
+                            <h3 className="Item-name">{ props.name }</h3>);
+                    }})() }
+                    <div 
+                        className={"Item-editTag" + ( expand ? "" : " Item-hidden" )} 
+                        onClick={(ev: any) => { 
+                            setEditMode(
+                                editMode === EditMode.TITLE ? EditMode.NONE : EditMode.TITLE);
+                            ev.stopPropagation(); 
+                        }}>+</div>
+                </div>
                 <div 
-                    className={"Item-state" + ( props.state ? " Item-complete" : " Item-incomplete")}
+                    className={
+                        "Item-state"
+                        + ( props.state ? " Item-complete" : " Item-incomplete")}
                     onClick={toggleThisState}></div>
             </div>
             <div className={"Item-expand" + ( expand ? "" : " Item-hidden" )}>
-                <p className="Item-desc">{ props.desc }</p>
+                <div className="Item-descContainer">
+                    { (() => { if(editMode === EditMode.DESC) {
+                        return (<input 
+                            className="Item-tagInput" 
+                            ref={ descRef } 
+                            type="text"
+                            defaultValue={props.desc}></input>);
+                    }else{
+                        return (
+                            <p className="Item-desc">{ props.desc }</p>);
+                    }})() }
+                    <div 
+                        className="Item-editTag" 
+                        onClick={() => { 
+                            setEditMode(
+                                editMode === EditMode.DESC ? EditMode.NONE : EditMode.DESC) 
+                }}>+</div>
+               </div>
                 <div className="Item-tags">
                     {
                         props.tags.map((tag, i) => {
                             return (
                                 <div className="Item-tag" key={i}>
                                     { tag }
-                                    <div 
-                                        className="ItemForm-tag-del" 
-                                        onClick={() => { 
-                                            removeTag(tag);
-                                        }}>x</div>
+                                    { (() => { if(editMode === EditMode.TAGS) {
+                                        return (<div 
+                                            className="ItemForm-tag-del" 
+                                            onClick={() => { 
+                                                removeTag(tag);
+                                            }}>x</div>);
+                                    }})() }
                                 </div>
                             )
                         })
                     }
+                    <div 
+                        className="Item-editTag" 
+                        onClick={() => { 
+                            setEditMode(
+                                editMode === EditMode.TAGS ? EditMode.NONE : EditMode.TAGS) 
+                        }}>+</div>
                 </div>
+                { (() => { if(editMode === EditMode.TAGS) {
+                    return (<input 
+                        className="Item-tagInput" 
+                        ref={ tagsRef } 
+                        type="text"></input>);
+                }})() }
                 <div className="Item-options">
                     <button className="Item-options-del" onClick={deleteThis}>
                         Delete

@@ -3,6 +3,12 @@
     background-color: var(--theme-background-1);
 }
 
+.Item-tagInput
+{
+    box-sizing: border-box;
+    width: 100%;
+}
+
 .Item-bar
 {
     padding: 5px 15px 5px 15px;
@@ -62,6 +68,35 @@
     padding: 3px 7px 3px 7px;
 
     background-color: var(--theme-background-2);
+}
+
+.Item-descContainer
+{
+    display: flex;
+}
+
+.Item-nameContainer
+{
+    display: flex;
+}
+
+.Item-editTag
+{
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+    
+    column-gap: 10px;
+
+    width: fit-content;
+
+    border-radius: 999px;
+    padding: 3px 7px 3px 7px;
+
+    background-color: var(--theme-background-2);
+
+    cursor: pointer;
 }
 
 .Item-tag-del
