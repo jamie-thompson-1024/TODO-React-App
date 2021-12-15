@@ -22,14 +22,14 @@
   }
 }
 
-.theme-light
+.theme-dark
 {
-  --theme-background-0: #aaaaaa;
-  --theme-background-1: #bbbbbb;
-  --theme-background-2: #cccccc;
+  --theme-background-0: #262626;
+  --theme-background-1: #3b3d3d;
+  --theme-background-2: #505454;
 
-  --theme-foreground-text: #222222;
-  --theme-foreground-border: #555555;
+  --theme-foreground-text: #e9f4f5;
+  --theme-foreground-border: #97a2a3;
 
-  --theme-select-border: #3300ff;
+  --theme-select-border: #0496ff;
 }

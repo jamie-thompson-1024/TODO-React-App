@@ -1,5 +1,6 @@
 import { useCallback, useContext, useEffect, useState, useRef } from 'react';
 import TodoContext from '../TodoContext';
+import { Theme } from '../../Model/Todo';
 
 import './Item.css';
 
@@ -22,9 +23,17 @@ enum EditMode
 
 function Item(props: ItemProps)
 {
-    const itemCollection = useContext(TodoContext).itemCollection;
+    const {itemCollection, settings} = useContext(TodoContext);
     const [expand, setExpand] = useState(false);
     const [editMode, setEditMode] = useState(EditMode.NONE);
+
+    const editSvgLogoPath = useCallback((theme: Theme) => { 
+        return `./Assets/pencil-logo-${theme.toString()}.svg`; 
+    }, []);
+    const [editSvgLogo, setEditSvgLogo] = useState(editSvgLogoPath(settings.theme));
+    const updateTheme = useCallback(() => {
+        setEditSvgLogo(editSvgLogoPath(settings.theme))
+    }, [editSvgLogoPath, settings]);
 
     const tagsRef = useRef<HTMLInputElement>(null);
     const nameRef = useRef<HTMLInputElement>(null);
@@ -77,6 +86,7 @@ function Item(props: ItemProps)
 
     useEffect(() => {
         itemCollection.addEventListener('itemSelect', selectResponse);
+        settings.addEventListener('themeChange', updateTheme);
         let tagRefc = tagsRef.current;
         let nameRefc = nameRef.current;
         let descRefc = descRef.current;
@@ -86,8 +96,9 @@ function Item(props: ItemProps)
         if(descRefc) descRefc.onchange = setDesc;
         return () => { 
             itemCollection.removeEventListener('itemSelect', selectResponse);
+            settings.removeEventListener('themeChange', updateTheme);
         }
-    }, [itemCollection, selectResponse, tagsRef, nameRef, descRef, addTag, setName, setDesc]);
+    }, [itemCollection, settings, selectResponse, tagsRef, nameRef, descRef, addTag, setName, setDesc, updateTheme]);
 
     return (
         <div className={"Item" + ( expand ? " Item-select" : "" )}>
@@ -109,7 +120,7 @@ function Item(props: ItemProps)
                             setEditMode(
                                 editMode === EditMode.TITLE ? EditMode.NONE : EditMode.TITLE);
                             ev.stopPropagation(); 
-                        }}>+</div>
+                        }}><img src={editSvgLogo} alt="edit"/></div>
                 </div>
                 <div 
                     className={
@@ -134,7 +145,7 @@ function Item(props: ItemProps)
                         onClick={() => { 
                             setEditMode(
                                 editMode === EditMode.DESC ? EditMode.NONE : EditMode.DESC) 
-                }}>+</div>
+                }}><img src={editSvgLogo} alt="edit"/></div>
                </div>
                 <div className="Item-tags">
                     {
@@ -147,7 +158,7 @@ function Item(props: ItemProps)
                                             className="ItemForm-tag-del" 
                                             onClick={() => { 
                                                 removeTag(tag);
-                                            }}>x</div>);
+                                            }}><img src={editSvgLogo} alt="edit"/></div>);
                                     }})() }
                                 </div>
                             )
@@ -158,7 +169,7 @@ function Item(props: ItemProps)
                         onClick={() => { 
                             setEditMode(
                                 editMode === EditMode.TAGS ? EditMode.NONE : EditMode.TAGS) 
-                        }}>+</div>
+                        }}><img src={editSvgLogo} alt="edit"/></div>
                 </div>
                 { (() => { if(editMode === EditMode.TAGS) {
                     return (<input 

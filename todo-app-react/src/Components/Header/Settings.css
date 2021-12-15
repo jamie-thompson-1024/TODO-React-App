@@ -1,0 +1,30 @@
+.Settings
+{
+    position: relative;
+}
+
+.Settings-button
+{
+    width: 3em;
+    height: 3em;
+
+    cursor: pointer;
+}
+
+.Settings-button > img
+{
+    width: 100%;
+    height: 100%;
+}
+
+.Settings-menu
+{
+    position: absolute;
+    top: 100%;
+    right: 0;
+}
+
+.Settings-hidden
+{
+    display: none;
+}

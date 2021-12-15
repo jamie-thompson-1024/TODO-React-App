@@ -85,8 +85,8 @@ enum SortOrder
 
 enum Theme
 {
-    LIGHT,
-    DARK
+    LIGHT = 'light',
+    DARK = 'dark'
 }
 
 const availableThemes = [

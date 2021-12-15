@@ -73,11 +73,15 @@
 .Item-descContainer
 {
     display: flex;
+    align-items: center;
+    column-gap: 7px;
 }
 
 .Item-nameContainer
 {
     display: flex;
+    align-items: center;
+    column-gap: 7px;
 }
 
 .Item-editTag
@@ -89,14 +93,21 @@
     
     column-gap: 10px;
 
-    width: fit-content;
+    width: 1.2em;
+    height: 1.2em;
 
     border-radius: 999px;
-    padding: 3px 7px 3px 7px;
+    padding: 3px 3px 3px 3px;
 
     background-color: var(--theme-background-2);
 
     cursor: pointer;
+}
+
+.Item-editTag > img
+{
+    width: 100%;
+    height: 100%;
 }
 
 .Item-tag-del
