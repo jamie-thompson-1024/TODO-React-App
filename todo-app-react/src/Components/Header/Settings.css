@@ -19,9 +19,20 @@
 
 .Settings-menu
 {
+    background-color: var(--theme-background-2);
+    border: 2px solid var(--theme-foreground-border);
+    border-radius: 5px;
+
+    display: flex;
     position: absolute;
+
     top: 100%;
     right: 0;
+
+    padding: 10px;
+
+    flex-direction: column;
+    row-gap: 5px;
 }
 
 .Settings-hidden

@@ -6,7 +6,8 @@ import './Settings.css';
 
 function Settings()
 {
-    const { settings } = useContext(TodoContext);
+    const storage = useContext(TodoContext);
+    const { settings } = storage;
 
     const [showMenu, setShowMenu] = useState(false);
 
@@ -24,6 +25,11 @@ function Settings()
         setShowMenu(!showMenu);
     }, [showMenu]);
 
+    const wipeData = useCallback(() => {
+        if(showMenu)
+            storage.wipe();
+    }, [showMenu, storage]);
+
     useEffect(() => {
         settings.addEventListener('themeChange', updateTheme);
         return (() => {
@@ -37,7 +43,8 @@ function Settings()
                 <img src={cogSvgLogo} alt="cog"></img>
             </div>
             <div className={"Settings-menu" + ( showMenu ? "" : " Settings-hidden" )}>
-
+                <button className="Settings-themeButton">Theme</button>
+                <button className="Settings-wipe" onClick={wipeData}>Wipe Data</button>
             </div>
         </div>
     )
