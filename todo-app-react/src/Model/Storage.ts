@@ -1,6 +1,8 @@
 import Settings from './Settings';
 import ItemCollection from './ItemCollection';
 
+import { TodoDataJson } from './Todo';
+
 class TodoStorage extends EventTarget
 {
     settings: Settings = new Settings();
@@ -18,35 +20,15 @@ class TodoStorage extends EventTarget
 
     load()
     {
-        let doSave = false;
 
-        if(!localStorage['todo-settings'])
-            doSave = true;
-        try
-        {
-            this.settings = Settings.fromJson(
-                JSON.parse(localStorage['todo-settings'])) ?? new Settings();
-        }
-        catch
-        {
-            this.settings = new Settings();
-            doSave = true;
-        }
-
-        if(!localStorage['todo-collection'])
-            doSave = true;
-        try
-        {
-            this.itemCollection = ItemCollection.fromJson(
-                JSON.parse(localStorage['todo-collection'])) ?? new ItemCollection();
-        }
-        catch
-        {
-            this.itemCollection = new ItemCollection();
-            doSave = true;
-        }
-
-        if(doSave)
+        let localObject: TodoDataJson | undefined
+        let localObjectString = localStorage['todoData'] as string | undefined;
+        if(localObjectString)
+            localObject = JSON.parse(localObjectString) as TodoDataJson;
+        this.settings = Settings.fromJson(localObject?.settings);
+        this.itemCollection = ItemCollection.fromJson(localObject?.itemCollection);
+        
+        if(!localObject || !(localObject?.itemCollection) || !(localObject?.settings))
             this.save();
         
         this.loadEvent();
@@ -54,16 +36,17 @@ class TodoStorage extends EventTarget
 
     save()
     {
-        localStorage['todo-settings'] = JSON.stringify(this.settings.toJson());
-        localStorage['todo-collection'] = JSON.stringify(this.itemCollection.toJson());
+        localStorage['todoData'] = JSON.stringify({
+            settings: this.settings.toJson(),
+            itemCollection: this.itemCollection.toJson()
+        } as TodoDataJson);
 
         this.saveEvent();
     }
 
     wipe()
     {
-        localStorage.removeItem('todo-settings');
-        localStorage.removeItem('todo-collection');
+        localStorage.removeItem('todoData');
 
         this.load();
     }

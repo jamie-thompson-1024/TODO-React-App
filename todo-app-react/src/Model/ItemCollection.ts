@@ -22,32 +22,32 @@ class ItemCollection extends EventTarget implements I_Item
     }
     */
 
-    static fromJson(obj?: ItemCollectionJson): ItemCollection | undefined
+    static fromJson(obj?: ItemCollectionJson): ItemCollection
     {
-        if(!obj)
-            return undefined;
-        
         let itemCol = new ItemCollection();
 
-        itemCol.lastID = obj.lastID;
+        if(obj)
+        {
+            itemCol.lastID = obj.lastID;
 
-        itemCol.items = (
-            obj.items.map((item) => { 
-                return Item.fromJson(item); })
-            .filter((item) => { 
-                return item; })) as Item[];
+            itemCol.items = (
+                obj.items.map((item) => { 
+                    return Item.fromJson(item); })
+                .filter((item) => { 
+                    return item; })) as Item[];
 
-        itemCol.changes = (
-            obj.changes.map((change) => { 
-                return Change.fromJson(change); })
-            .filter((change) => { 
-                return change; })) as Change[];
+            itemCol.changes = (
+                obj.changes.map((change) => { 
+                    return Change.fromJson(change); })
+                .filter((change) => { 
+                    return change; })) as Change[];
 
-        itemCol.undoneChanges = (
-            obj.undoneChanges.map((change) => { 
-                return Change.fromJson(change); })
-            .filter((change) => { 
-                return change; })) as Change[];
+            itemCol.undoneChanges = (
+                obj.undoneChanges.map((change) => { 
+                    return Change.fromJson(change); })
+                .filter((change) => { 
+                    return change; })) as Change[];
+        }
         
         itemCol.setSearchParams('', SortOrder.ASC_DATE_ADDED);
 

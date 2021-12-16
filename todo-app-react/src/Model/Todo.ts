@@ -8,6 +8,12 @@ const allowedChars = [
     '-', '_', '+', '=', '*', ' ', 
 ];
 
+interface TodoDataJson
+{
+    settings: SettingsJson,
+    itemCollection: ItemCollectionJson
+}
+
 interface ItemJson
 {
     ID: number
@@ -99,7 +105,8 @@ export type {
     SettingsJson,
     ChangeJson,
     ChangeData,
-    ItemCollectionJson
+    ItemCollectionJson,
+    TodoDataJson
 };
 
 export {

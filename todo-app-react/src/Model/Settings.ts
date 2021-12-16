@@ -29,13 +29,11 @@ class Settings extends EventTarget
         );
     }
 
-    static fromJson(obj?: SettingsJson): Settings | undefined
+    static fromJson(obj?: SettingsJson): Settings
     {
-        if(!obj)
-            return undefined;
-
         let settings = new Settings();
-        settings.theme = obj.theme;
+        if(obj)
+            settings.theme = obj.theme;
         return settings;
     }
 
