@@ -8,12 +8,13 @@ import './ItemList.css';
 
 function ItemList()
 {
-    const itemCollection = useContext(TodoContext).itemCollection;
+    const { itemCollection } = useContext(TodoContext);
     const [items, setItems] = useState(itemCollection.getSearchItems());
 
     const updateItems = useCallback(() => {
         setItems(itemCollection.getSearchItems());
-    }, [itemCollection]);
+        console.log(itemCollection);
+    }, [setItems, itemCollection]);
 
     useEffect(() => {
         itemCollection.addEventListener('itemSearch', updateItems);

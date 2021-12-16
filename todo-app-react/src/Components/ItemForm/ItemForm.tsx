@@ -48,6 +48,7 @@ function ItemForm()
 
     return (
         <div className="ItemForm">
+            <h2 className="ItemForm-Heading">Create Item</h2>
             <input className="ItemForm-nameInput" ref={nameRef} type="text"></input>
             <textarea className="ItemForm-descInput" ref={descRef}></textarea>
             <div className={ "ItemForm-tags" + (tags.length > 0) ? "" : "ItemForm-display-none" }>

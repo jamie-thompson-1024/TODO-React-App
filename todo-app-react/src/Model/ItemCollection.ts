@@ -29,7 +29,6 @@ class ItemCollection extends EventTarget implements I_Item
         
         let itemCol = new ItemCollection();
 
-        itemCol.selected = obj.selected;
         itemCol.lastID = obj.lastID;
 
         itemCol.items = (
@@ -59,7 +58,6 @@ class ItemCollection extends EventTarget implements I_Item
     {
         return {
             items: this.items.map((item) => { return item.toJson(); }),
-            selected: this.selected,
             changes: this.changes.map((change) => { return change.toJson(); }),
             undoneChanges: this.changes.map((change) => { return change.toJson(); }),
             lastID: this.lastID
@@ -198,9 +196,9 @@ class ItemCollection extends EventTarget implements I_Item
 
     setSearchParams(filter?: string, order?: SortOrder): ValidationMessage
     {
-        if(filter)
+        if(filter !== undefined)
             this.filter = filter;
-        if(order)
+        if(order !== undefined)
             this.order = order;
 
         this.searchItems = this.items.filter((item) => {

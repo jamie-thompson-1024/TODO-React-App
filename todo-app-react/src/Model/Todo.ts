@@ -22,7 +22,6 @@ interface ItemJson
 interface ItemCollectionJson
 {
     items: Array<ItemJson>;
-    selected: number;
     changes: Array<ChangeJson>;
     undoneChanges: Array<ChangeJson>;
     lastID: number;

@@ -1,0 +1,47 @@
+.SearchBar
+{
+    padding: 5px;
+}
+
+.SearchBar-bar
+{
+    display: flex;
+
+    background-color: white;
+
+    padding: 10px;
+
+    border-radius: 9999px;
+}
+
+.SearchBar-sortOptions
+{
+
+}
+
+.SearchBar-searchInput
+{
+    width: 100%;
+
+    border: none;
+
+    font-size: 1.8em;
+}
+
+.SearchBar-searchInput:focus
+{
+    outline: none;
+}
+
+.SearchBar-searchButton
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 3em;
+    height: 3em;
+
+    background-color: white;
+    border: none;
+}

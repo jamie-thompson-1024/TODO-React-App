@@ -24,7 +24,7 @@ enum EditMode
 function Item(props: ItemProps)
 {
     const {itemCollection, settings} = useContext(TodoContext);
-    const [expand, setExpand] = useState(false);
+    const [expand, setExpand] = useState(itemCollection.selected === props.ID);
     const [editMode, setEditMode] = useState(EditMode.NONE);
 
     const editSvgLogoPath = useCallback((theme: Theme) => { 
@@ -158,7 +158,7 @@ function Item(props: ItemProps)
                                             className="ItemForm-tag-del" 
                                             onClick={() => { 
                                                 removeTag(tag);
-                                            }}><img src={editSvgLogo} alt="edit"/></div>);
+                                            }}>x</div>);
                                     }})() }
                                 </div>
                             )
