@@ -1,15 +1,26 @@
 {
-  "short_name": "TODO React",
-  "name": "Simple TODO App",
+  "short_name": "TODO App",
+  "name": "TODO App",
+  "description": "TODO App created in react, allowing the creation and modifcation of items on a TODO list",
+  "lang": "en-US",
   "icons": [
     {
       "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "sizes": "64x64",
       "type": "image/x-icon"
-    }
+    },
+    { "src": "Assets/cog-logo-dark.svg" },
+    { "src": "Assets/cog-logo-light.svg" },
+    { "src": "Assets/pencil-logo-dark.svg" },
+    { "src": "Assets/pencil-logo-light.svg" },
+    { "src": "Assets/search-logo-dark.svg" },
+    { "src": "Assets/search-logo-light.svg" },
+    { "src": "Assets/sticky-notes-logo-dark.svg" },
+    { "src": "Assets/sticky-notes-logo-light.svg" }
   ],
   "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "orientation": "any",
+  "display": "browser",
+  "theme_color": "#262626",
+  "background_color": "#262626"
 }
