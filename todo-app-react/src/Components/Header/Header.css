@@ -8,12 +8,24 @@
     align-items: center;
 
     padding: 10px;
-    padding-left: 8%;
     margin: 5px;
 
     border-radius: 5px;
 
     background-color: var(--theme-background-1);
+}
+
+.Header-Title
+{
+    display: flex;
+    column-gap: 15px;
+    align-items: center;
+}
+
+.Header-Title > img
+{
+    width: 3em;
+    height: 3em;   
 }
 
 @media (min-width: 45em)

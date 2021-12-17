@@ -49,8 +49,17 @@ function ItemForm()
     return (
         <div className="ItemForm">
             <h2 className="ItemForm-Heading">Create Item</h2>
-            <input className="ItemForm-nameInput" ref={nameRef} type="text"></input>
-            <textarea className="ItemForm-descInput" ref={descRef}></textarea>
+            <label htmlFor="ItemForm-nameInput">
+                Name: 
+            </label>
+            <input id="ItemForm-nameInput" className="ItemForm-nameInput" ref={nameRef} type="text"></input>
+            <label htmlFor="ItemForm-descInput">
+                Description: 
+            </label>
+            <textarea id="ItemForm-descInput" className="ItemForm-descInput" ref={descRef}></textarea>
+            <label htmlFor="ItemForm-tagInput">
+                Tags: 
+            </label>
             <div className={ "ItemForm-tags" + (tags.length > 0) ? "" : "ItemForm-display-none" }>
                 {
                     tags.map((tag, i) => {
@@ -67,7 +76,8 @@ function ItemForm()
                     })
                 }
             </div>
-            <input 
+            <input
+                id="ItemForm-tagInput" 
                 className="ItemForm-tagInput" 
                 ref={tagsRef} 
                 type="text"></input>
