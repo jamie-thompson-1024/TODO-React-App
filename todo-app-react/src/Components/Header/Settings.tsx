@@ -25,6 +25,13 @@ function Settings()
         setShowMenu(!showMenu);
     }, [showMenu]);
 
+    const toggleTheme = useCallback(() => {
+        if(settings.theme === Theme.DARK)
+            settings.setTheme(Theme.LIGHT);
+        else if(settings.theme === Theme.LIGHT)
+            settings.setTheme(Theme.DARK);
+    }, [settings]);
+
     const wipeData = useCallback(() => {
         if(showMenu)
             storage.wipe();
@@ -43,7 +50,7 @@ function Settings()
                 <img src={cogSvgLogo} alt="cog"></img>
             </div>
             <div className={"Settings-menu" + ( showMenu ? "" : " Settings-hidden" )}>
-                <button className="Settings-themeButton">Theme</button>
+                <button className="Settings-themeButton" onClick={toggleTheme}>Theme</button>
                 <button className="Settings-wipe" onClick={wipeData}>Wipe Data</button>
             </div>
         </div>

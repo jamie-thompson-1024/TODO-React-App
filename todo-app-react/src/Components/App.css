@@ -33,3 +33,15 @@
 
   --theme-select-border: #0496ff;
 }
+
+.theme-light
+{
+  --theme-background-0: #e9f4f5;
+  --theme-background-1: #97a2a3;
+  --theme-background-2: #626768;
+
+  --theme-foreground-text: #262626;
+  --theme-foreground-border: #505454;
+
+  --theme-select-border: #0496ff;
+}
