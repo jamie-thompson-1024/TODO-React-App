@@ -1,6 +1,8 @@
 .Item
 {
-    background-color: var(--theme-background-1);
+    background-color: var(--theme-background-0);
+
+    border-radius: 5px;
 }
 
 .Item-tagInput
