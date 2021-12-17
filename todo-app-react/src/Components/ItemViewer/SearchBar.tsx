@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect, useState, useRef } from 'react';
 import TodoContext from '../TodoContext';
-import { Theme } from '../../Model/Todo';
+import { SortOrder, Theme } from '../../Model/Todo';
 
 import './SearchBar.css';
 
@@ -17,10 +17,13 @@ function SearchBar()
     }, [searchSvgLogoPath, settings]);
 
     const searchRef = useRef<HTMLInputElement>(null);
+    const orderRef = useRef<HTMLSelectElement>(null);
     const search = useCallback(() => {
-        if(searchRef.current)
+        if(searchRef.current && orderRef.current)
         {
-            itemCollection.setSearchParams(searchRef.current.value ?? "");
+            itemCollection.setSearchParams(
+                searchRef.current.value ?? "",
+                orderRef.current.value as SortOrder ?? SortOrder.ASC_DATE_ADDED);
             console.log(searchRef.current.value);
         }
     },[itemCollection, searchRef]);
@@ -46,7 +49,15 @@ function SearchBar()
                     ref={searchRef}></input>
             </div>
             <div className="SearchBar-sortOptions">
-
+                <label htmlFor="sortOrderOption">Order: </label>
+                <select id="sortOrderOption" ref={orderRef}>
+                    <option value={SortOrder.ASC_DATE_ADDED}>Created Asc</option>
+                    <option value={SortOrder.DSC_DATE_ADDED}>Created Dsc</option>
+                    <option value={SortOrder.ASC_NAME}>Name Asc</option>
+                    <option value={SortOrder.DSC_NAME}>Name Dsc</option>
+                    <option value={SortOrder.ASC_DATE_MODIFIED}>Modified Asc</option>
+                    <option value={SortOrder.DSC_DATE_MODIFIED}>Modified Dsc</option>
+                </select>
             </div>
         </div>
     )

@@ -6,7 +6,7 @@ function Header()
 {
     return (
         <header className="Header">
-            <h1>Header</h1>
+            <h1>Todo List</h1>
             <Settings />
         </header>
     )

@@ -15,13 +15,6 @@ class ItemCollection extends EventTarget implements I_Item
     filter: string = '';
     order: SortOrder = SortOrder.ASC_DATE_ADDED;
 
-    /*
-    constructor()
-    {
-        super();
-    }
-    */
-
     static fromJson(obj?: ItemCollectionJson): ItemCollection
     {
         let itemCol = new ItemCollection();

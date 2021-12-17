@@ -83,9 +83,9 @@ enum ChangeAction
 
 enum SortOrder
 {
-    ASC_NAME, DSC_NAME,
-    ASC_DATE_ADDED, DSC_DATE_ADDED,
-    ASC_DATE_MODIFIED, DSC_DATE_MODIFIED
+    ASC_NAME = 'ascName', DSC_NAME = 'dscName',
+    ASC_DATE_ADDED = 'ascCreated', DSC_DATE_ADDED = 'dscCreated',
+    ASC_DATE_MODIFIED = 'ascModified', DSC_DATE_MODIFIED = 'dscModified'
 }
 
 enum Theme

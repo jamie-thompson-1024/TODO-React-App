@@ -1,6 +1,8 @@
 .SearchBar
 {
     padding: 5px;
+    display: flex;
+    flex-direction: column;
 }
 
 .SearchBar-bar
@@ -9,7 +11,7 @@
 
     background-color: white;
 
-    padding: 10px;
+    padding: 5px 10px 5px 10px;
 
     border-radius: 9999px;
 }
@@ -25,7 +27,7 @@
 
     border: none;
 
-    font-size: 1.8em;
+    font-size: 1.5em;
 }
 
 .SearchBar-searchInput:focus
@@ -39,8 +41,8 @@
     justify-content: center;
     align-items: center;
 
-    width: 3em;
-    height: 3em;
+    width: 2.5em;
+    height: 2.5em;
 
     background-color: white;
     border: none;
