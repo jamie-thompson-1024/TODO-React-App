@@ -53,7 +53,10 @@ function Item(props: ItemProps)
 
     const addTag = useCallback(() => {
         if(itemCollection.selected === props.ID && editMode === EditMode.TAGS && tagsRef.current)
+        {
             itemCollection.addTag(tagsRef.current.value);
+            tagsRef.current.value = ""
+        }
         console.log("add Tag");
     }, [itemCollection, props.ID, editMode, tagsRef]);
 
