@@ -136,12 +136,13 @@
 
 .Item-complete
 {
-    background-color: green;
+    background-color: #29f329;
 }
 
 .Item-incomplete
 {
-    background-color: red;
+    background-color: #aaaaaa55;
+    border: 1px dashed var(--theme-foreground-border);
 }
 
 .Item-hidden

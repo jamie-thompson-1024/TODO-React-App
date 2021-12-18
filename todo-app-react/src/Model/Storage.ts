@@ -16,6 +16,8 @@ class TodoStorage extends EventTarget
 
         this.itemCollection.addEventListener(
             'itemChange', () => { this.save() });
+        this.settings.addEventListener(
+            'themeChange', () => { this.save() });
     }
 
     load()

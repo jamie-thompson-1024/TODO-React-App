@@ -32,16 +32,20 @@
   --theme-foreground-border: #97a2a3;
 
   --theme-select-border: #0496ff;
+
+  --theme-box-border: none;
 }
 
 .theme-light
 {
-  --theme-background-0: #e9f4f5;
-  --theme-background-1: #97a2a3;
-  --theme-background-2: #626768;
+  --theme-background-0: #f7f7f7;
+  --theme-background-1: #e4e4e4;
+  --theme-background-2: #acacac;
 
   --theme-foreground-text: #262626;
-  --theme-foreground-border: #505454;
+  --theme-foreground-border: #929292;
 
   --theme-select-border: #0496ff;
+
+  --theme-box-border: 1px solid var(--theme-foreground-border);
 }

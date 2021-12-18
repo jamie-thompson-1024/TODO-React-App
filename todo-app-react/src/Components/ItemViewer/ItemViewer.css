@@ -13,6 +13,7 @@
     row-gap: 10px;
 
     border-radius: 5px;
+    border: var(--theme-box-border);
 
     background-color: var(--theme-background-1);
 }
