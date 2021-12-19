@@ -27,6 +27,14 @@ function SearchBar()
             console.log(searchRef.current.value);
         }
     },[itemCollection, searchRef]);
+    
+    const undoChange = useCallback(() => {
+        itemCollection.undo();
+    }, [itemCollection]);
+
+    const redoChange = useCallback(() => {
+        itemCollection.redo();
+    }, [itemCollection]);
 
     useEffect(() => {
         settings.addEventListener('themeChange', updateTheme);
@@ -48,17 +56,28 @@ function SearchBar()
                     className="SearchBar-searchInput"
                     ref={searchRef}></input>
             </div>
-            <div className="SearchBar-sortOptions">
-                <label htmlFor="sortOrderOption">Order: </label>
-                <select id="sortOrderOption" ref={orderRef}>
-                    <option value={SortOrder.ASC_DATE_ADDED}>Created Asc</option>
-                    <option value={SortOrder.DSC_DATE_ADDED}>Created Dsc</option>
-                    <option value={SortOrder.ASC_NAME}>Name Asc</option>
-                    <option value={SortOrder.DSC_NAME}>Name Dsc</option>
-                    <option value={SortOrder.ASC_DATE_MODIFIED}>Modified Asc</option>
-                    <option value={SortOrder.DSC_DATE_MODIFIED}>Modified Dsc</option>
-                </select>
+            <div className="SearchBar-options">
+                <div className="SearchBar-SortOptions">
+                    <label htmlFor="sortOrderOption">Order: </label>
+                    <select id="sortOrderOption" ref={orderRef}>
+                        <option value={SortOrder.ASC_DATE_ADDED}>Created Asc</option>
+                        <option value={SortOrder.DSC_DATE_ADDED}>Created Dsc</option>
+                        <option value={SortOrder.ASC_NAME}>Name Asc</option>
+                        <option value={SortOrder.DSC_NAME}>Name Dsc</option>
+                        <option value={SortOrder.ASC_DATE_MODIFIED}>Modified Asc</option>
+                        <option value={SortOrder.DSC_DATE_MODIFIED}>Modified Dsc</option>
+                    </select>
+                </div>
+                <div className="SearchBar-undoRedoControls">
+                    <button className="SearchBar-undoRedoButton" onClick={undoChange}>
+                        undo
+                    </button>
+                    <button className="SearchBar-undoRedoButton" onClick={redoChange}>
+                        redo
+                    </button>
+                </div>
             </div>
+
         </div>
     )
 }

@@ -17,9 +17,17 @@
     border-radius: 9999px;
 }
 
-.SearchBar-sortOptions
+.SearchBar-options
 {
-    margin-left: 1em;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 1em 0 1em;
+}
+
+.SearchBar-undoRedoControls
+{
+    display: flex;
+    column-gap: 0.4em;
 }
 
 .SearchBar-searchInput

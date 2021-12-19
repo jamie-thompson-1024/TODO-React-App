@@ -52,7 +52,7 @@ class ItemCollection extends EventTarget implements I_Item
         return {
             items: this.items.map((item) => { return item.toJson(); }),
             changes: this.changes.map((change) => { return change.toJson(); }),
-            undoneChanges: this.changes.map((change) => { return change.toJson(); }),
+            undoneChanges: this.undoneChanges.map((change) => { return change.toJson(); }),
             lastID: this.lastID
         };
     }
@@ -123,56 +123,10 @@ class ItemCollection extends EventTarget implements I_Item
 
     undo(change?: Change)
     {
-        if(!change)
-        {
-            if(this.changes.length > 0)
-                change = this.changes[this.changes.length - 1];
-            else
-                return;
-        }
-
-        switch(change.action)
-        {
-            case ChangeAction.ADD_ITEM:
-                break;
-            case ChangeAction.ADD_TAG:
-                break;
-            case ChangeAction.REMOVE_ITEM:
-                break;
-            case ChangeAction.REMOVE_TAG:
-                break;
-            case ChangeAction.SET_DESC:
-                break;
-            case ChangeAction.SET_NAME:
-                break;
-            case ChangeAction.SET_STATE:
-                break;
-            default:
-                
-        }
     }
 
     redo(change?: Change)
     {
-        switch(change?.action)
-        {
-            case ChangeAction.ADD_ITEM:
-                break;
-            case ChangeAction.ADD_TAG:
-                break;
-            case ChangeAction.REMOVE_ITEM:
-                break;
-            case ChangeAction.REMOVE_TAG:
-                break;
-            case ChangeAction.SET_DESC:
-                break;
-            case ChangeAction.SET_NAME:
-                break;
-            case ChangeAction.SET_STATE:
-                break;
-            default:
-                
-        }
     }
 
     createID(): number
