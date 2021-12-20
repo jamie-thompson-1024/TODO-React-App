@@ -13,7 +13,6 @@ function ItemList()
 
     const updateItems = useCallback(() => {
         setItems(itemCollection.getSearchItems());
-        console.log(itemCollection);
     }, [setItems, itemCollection]);
 
     useEffect(() => {

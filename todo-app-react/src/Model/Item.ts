@@ -44,6 +44,7 @@ class Item implements I_Item
     {
         let newItem = new Item(0, '', '', []);
         Object.assign(newItem, this);
+        newItem.tags = this.tags.map((tag) => tag);
         return newItem;
     }
 

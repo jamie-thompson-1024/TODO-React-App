@@ -82,12 +82,12 @@ class ItemCollection extends EventTarget implements I_Item
         {
             this.items = this.items.filter((f_item) => { return f_item !== item });
 
-            this.changes.push( new Change(
+            let change = new Change(
                 ChangeAction.REMOVE_ITEM,
                 { oldValue: item.clone() }
-            ));
-
-            this.changeEvent(item);
+            );
+            this.changes.push(change);
+            this.changeEvent(change);
             return ValidationMessage.OK;
         }
 
@@ -110,23 +110,157 @@ class ItemCollection extends EventTarget implements I_Item
         let item = new Item( this.createID(), name, desc, tags );
         this.items.push( item );
 
-        this.changes.push( new Change(
+        let change = new Change(
             ChangeAction.ADD_ITEM,
             { newValue: item.clone() }
-        ));
-
-        this.changeEvent(item);
+        );
+        this.changes.push(change);
+        this.changeEvent(change);
         this.selectItem(item.ID);
 
         return errorList;
     }
 
-    undo(change?: Change)
+    undo(change?: Change): ValidationMessage
     {
+        if(!change)
+        {
+            change = this.changes.pop();
+
+            if(!change)
+                return ValidationMessage.DOESNT_EXIST;
+
+            this.undoneChanges.push(change);
+        }
+
+        let item;
+        let tagAdded;
+        
+        switch(change.action)
+        {
+            case ChangeAction.ADD_ITEM:
+                this.items = this.items.filter(({ID}) => {
+                    return change?.newValue?.ID ?? -1 !== ID;
+                });
+                break;
+            case ChangeAction.ADD_TAG:
+                tagAdded = change?.newValue?.tags.find((tag) => {
+                    return !change?.oldValue?.tags.includes(tag);
+                });
+
+                item = this.getItem(change?.newValue?.ID ?? -1);
+                
+                if(tagAdded && item)
+                    item.removeTag(tagAdded);
+
+                break;
+            case ChangeAction.REMOVE_ITEM:
+                item = change.oldValue?.clone();
+                if(item)
+                    this.items.push(item)
+                break;
+            case ChangeAction.REMOVE_TAG:
+                tagAdded = change?.oldValue?.tags.find((tag) => {
+                    return !change?.newValue?.tags.includes(tag);
+                });
+
+                item = this.getItem(change?.newValue?.ID ?? -1);
+                
+                if(tagAdded && item)
+                    item.addTag(tagAdded);
+
+                break;
+            case ChangeAction.SET_DESC:
+                item = this.getItem(change?.newValue?.ID ?? -1);
+                if(item)
+                    item.description = change?.oldValue?.description ?? item.description;
+                break;
+            case ChangeAction.SET_NAME:
+                item = this.getItem(change?.newValue?.ID ?? -1);
+                if(item)
+                    item.name = change?.oldValue?.name ?? item.name;
+                break;
+            case ChangeAction.SET_STATE:
+                item = this.getItem(change?.newValue?.ID ?? -1);
+                if(item)
+                    item.completed = change?.oldValue?.completed ?? item.completed;
+                break;
+        }
+
+        this.changeEvent(change);
+
+        return ValidationMessage.OK;
     }
 
-    redo(change?: Change)
+    redo(change?: Change): ValidationMessage
     {
+        if(!change)
+        {
+            change = this.undoneChanges.pop();
+            
+            if(!change)
+                return ValidationMessage.DOESNT_EXIST;
+
+            this.changes.push(change);
+        }
+
+        let item;
+        let tagAdded;
+        
+        switch(change.action)
+        {
+            case ChangeAction.ADD_ITEM:
+                item = change.newValue?.clone();
+                if(item)
+                    this.items.push(item)
+                break;
+            case ChangeAction.ADD_TAG:
+                tagAdded = change?.newValue?.tags.find((tag) => {
+                    return !change?.oldValue?.tags.includes(tag);
+                });
+
+                item = this.getItem(change?.newValue?.ID ?? -1);
+                console.log(item); console.log(tagAdded);
+                if(tagAdded && item)
+                    item.addTag(tagAdded);
+
+                break;
+            case ChangeAction.REMOVE_ITEM:
+                this.items = this.items.filter(({ID}) => {
+                    return change?.oldValue?.ID ?? -1 !== ID;
+                });
+                break;
+            case ChangeAction.REMOVE_TAG:
+                tagAdded = change?.oldValue?.tags.find((tag) => {
+                    return !change?.newValue?.tags.includes(tag);
+                });
+
+                item = this.getItem(change?.newValue?.ID ?? -1);
+                
+                if(tagAdded && item)
+                    item.removeTag(tagAdded);
+
+                break;
+            case ChangeAction.SET_DESC:
+                item = this.getItem(change?.newValue?.ID ?? -1);
+                if(item)
+                    item.description = change?.newValue?.description ?? item.description;
+                break;
+            case ChangeAction.SET_NAME:
+                item = this.getItem(change?.newValue?.ID ?? -1);
+                if(item)
+                    item.name = change?.newValue?.name ?? item.name;
+                break;
+            case ChangeAction.SET_STATE:
+                item = this.getItem(change?.newValue?.ID ?? -1);
+                if(item)
+                    item.completed = change?.newValue?.completed ?? item.completed;
+                break;
+        }
+
+        this.changeEvent(change);
+
+        return ValidationMessage.OK;
     }
 
     createID(): number
@@ -232,11 +366,12 @@ class ItemCollection extends EventTarget implements I_Item
             let old = item.clone();
             let msg = item.setName(newName);
 
-            this.changes.push( new Change(
+            let change = new Change(
                 ChangeAction.SET_NAME,
                 { oldValue: old, newValue: item.clone() }
-            ));
-            this.changeEvent(item);
+            );
+            this.changes.push(change);
+            this.changeEvent(change);
             return msg;
         }
 
@@ -252,11 +387,12 @@ class ItemCollection extends EventTarget implements I_Item
             let old = item.clone();
             let msg = item.setDesc(newDesc);
 
-            this.changes.push( new Change(
+            let change = new Change(
                 ChangeAction.SET_DESC,
                 { oldValue: old, newValue: item.clone() }
-            ));
-            this.changeEvent(item);
+            );
+            this.changes.push(change);
+            this.changeEvent(change);
             return msg;
         }
 
@@ -272,11 +408,12 @@ class ItemCollection extends EventTarget implements I_Item
             let old = item.clone();
             let msg = item.setState(newState);
 
-            this.changes.push( new Change(
+            let change = new Change(
                 ChangeAction.SET_STATE,
                 { oldValue: old, newValue: item.clone() }
-            ));
-            this.changeEvent(item);
+            );
+            this.changes.push(change);
+            this.changeEvent(change);
             return msg;
         }
 
@@ -292,11 +429,12 @@ class ItemCollection extends EventTarget implements I_Item
             let old = item.clone();
             let msg = item.addTag(newTag);
 
-            this.changes.push( new Change(
+            let change = new Change(
                 ChangeAction.ADD_TAG,
                 { oldValue: old, newValue: item.clone() }
-            ));
-            this.changeEvent(item);
+            );
+            this.changes.push( change );
+            this.changeEvent( change );
             return msg;
         }
 
@@ -312,11 +450,12 @@ class ItemCollection extends EventTarget implements I_Item
             let old = item.clone();
             let msg = item.removeTag(tag);
 
-            this.changes.push( new Change(
+            let change = new Change(
                 ChangeAction.REMOVE_TAG,
                 { oldValue: old, newValue: item.clone() }
-            ));
-            this.changeEvent(item);
+            );
+            this.changes.push( change );
+            this.changeEvent( change );
             return msg;
         }
 
@@ -325,11 +464,11 @@ class ItemCollection extends EventTarget implements I_Item
 
 
     // === Events ===
-    changeEvent(item: Item)
+    changeEvent(change?: Change)
     {
         this.setSearchParams();
         this.dispatchEvent(
-            new CustomEvent<{item: Item}>('itemChange', { detail: { item } })
+            new CustomEvent<{change: Change | undefined}>('itemChange', { detail: { change } })
         );
     }
 
