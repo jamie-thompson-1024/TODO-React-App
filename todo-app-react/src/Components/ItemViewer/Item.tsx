@@ -87,6 +87,10 @@ function Item(props: ItemProps)
             itemCollection.selectItem(props.ID);
     }, [itemCollection, props.ID]);
 
+    const stopPropigation = useCallback((ev: any) => {
+        ev.stopPropagation();
+    }, []);
+
     useEffect(() => {
         itemCollection.addEventListener('itemSelect', selectResponse);
         settings.addEventListener('themeChange', updateTheme);
@@ -110,6 +114,7 @@ function Item(props: ItemProps)
                     { (() => { if(editMode === EditMode.TITLE && expand) {
                         return (<input 
                             className="Item-tagInput" 
+                            onClick={ stopPropigation }
                             ref={ nameRef } 
                             type="text"
                             defaultValue={props.name}></input>);
@@ -141,7 +146,8 @@ function Item(props: ItemProps)
                             defaultValue={props.desc}></input>);
                     }else{
                         return (
-                            <p className="Item-desc">{ props.desc }</p>);
+                            <p className="Item-desc">{ props.desc }</p>
+                            );
                     }})() }
                     <div 
                         className="Item-editTag" 

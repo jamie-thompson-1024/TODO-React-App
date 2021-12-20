@@ -51,6 +51,7 @@ class TodoStorage extends EventTarget
         localStorage.removeItem('todoData');
 
         this.load();
+        this.wipeEvent();
     }
 
     loadEvent()
@@ -64,6 +65,13 @@ class TodoStorage extends EventTarget
     {
         this.dispatchEvent(
             new Event('save')
+        );
+    }
+
+    wipeEvent()
+    {
+        this.dispatchEvent(
+            new Event('wipe')
         );
     }
 }

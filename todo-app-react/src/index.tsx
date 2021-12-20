@@ -11,9 +11,8 @@ import TodoContext from './Components/TodoContext';
 import TodoStorage from './Model/Storage';
 
 const todoStore = new TodoStorage();
-console.log(todoStore);
-todoStore.itemCollection.addEventListener('itemChange', 
-  () => { console.log(todoStore.itemCollection); });
+
+todoStore.addEventListener('wipe', () => { window.location.reload(); })
 
 ReactDOM.render(
   <React.StrictMode>

@@ -79,6 +79,11 @@
     column-gap: 7px;
 }
 
+.Item-desc
+{
+    white-space: pre-wrap;
+}
+
 .Item-nameContainer
 {
     display: flex;

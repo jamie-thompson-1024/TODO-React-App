@@ -468,7 +468,7 @@ class ItemCollection extends EventTarget implements I_Item
     {
         this.setSearchParams();
         this.dispatchEvent(
-            new CustomEvent<{change: Change | undefined}>('itemChange', { detail: { change } })
+            new CustomEvent<{change?: Change}>('itemChange', { detail: { change } })
         );
     }
 
