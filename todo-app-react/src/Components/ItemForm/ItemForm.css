@@ -17,6 +17,32 @@
     border: var(--theme-box-border);
 }
 
+.ItemForm > input
+{
+    background-color: var(--theme-background-0);
+    color: var(--theme-foreground-text);
+    border: none;
+}
+
+.ItemForm > input:focus
+{
+    outline: var(--theme-foreground-text) solid 1px;
+    border-radius: 3px;
+}
+
+.ItemForm > textarea
+{
+    background-color: var(--theme-background-0);
+    color: var(--theme-foreground-text);
+    border: none;
+}
+
+.ItemForm > textarea:focus
+{
+    outline: var(--theme-foreground-text) solid 1px;
+    border-radius: 3px;
+}
+
 .ItemForm-Heading
 {
     text-align: center;

@@ -10,7 +10,8 @@
 {
     display: flex;
 
-    background-color: white;
+    background-color: var(--theme-background-0);
+    color: var(--theme-foreground-text);
 
     padding: 5px 10px 5px 10px;
 
@@ -24,6 +25,11 @@
     margin: 0 1em 0 1em;
 }
 
+.SearchBar-focus
+{
+    outline: var(--theme-foreground-text) solid 1px;
+}
+
 .SearchBar-undoRedoControls
 {
     display: flex;
@@ -35,6 +41,9 @@
     width: 100%;
 
     border: none;
+
+    background-color: var(--theme-background-0);
+    color: var(--theme-foreground-text);
 
     font-size: 1.5em;
 }
@@ -53,6 +62,6 @@
     width: 2.5em;
     height: 2.5em;
 
-    background-color: white;
+    background-color: var(--theme-background-0);
     border: none;
 }

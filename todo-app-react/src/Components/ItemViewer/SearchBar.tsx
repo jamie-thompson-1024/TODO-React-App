@@ -8,6 +8,14 @@ function SearchBar()
 {
     const {itemCollection, settings} = useContext(TodoContext);
 
+    const [searchFocus, setSearchFocus] = useState(false);
+    const onSearchFocus = useCallback(() => {
+        setSearchFocus(true);
+    }, [setSearchFocus]);
+    const onSearchBlur = useCallback(() => {
+        setSearchFocus(false);
+    }, [setSearchFocus]);
+
     const searchSvgLogoPath = useCallback((theme: Theme) => { 
         return `./Assets/search-logo-${theme.toString()}.svg`; 
     }, []);
@@ -45,7 +53,7 @@ function SearchBar()
 
     return (
         <div className="SearchBar">
-            <div className="SearchBar-bar">
+            <div className={`SearchBar-bar${searchFocus ? " SearchBar-focus" : ""}`}>
                 <button 
                     className="SearchBar-searchButton"
                     onClick={search}>
@@ -54,6 +62,8 @@ function SearchBar()
                 <input 
                     type="text" 
                     className="SearchBar-searchInput"
+                    onFocus={onSearchFocus}
+                    onBlur={onSearchBlur}
                     ref={searchRef}></input>
             </div>
             <div className="SearchBar-options">
