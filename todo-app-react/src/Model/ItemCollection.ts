@@ -19,6 +19,7 @@ class ItemCollection extends EventTarget implements I_Item
     {
         let itemCol = new ItemCollection();
 
+        // if data object given convert items/changes intertively to Item / Change objects
         if(obj)
         {
             itemCol.lastID = obj.lastID;
@@ -42,6 +43,7 @@ class ItemCollection extends EventTarget implements I_Item
                     return change; })) as Change[];
         }
         
+        // reset search params
         itemCol.setSearchParams('', SortOrder.ASC_DATE_ADDED);
 
         return itemCol;
@@ -49,6 +51,7 @@ class ItemCollection extends EventTarget implements I_Item
 
     toJson(): ItemCollectionJson
     {
+        // itertively convert items/changes to raw json objects
         return {
             items: this.items.map((item) => { return item.toJson(); }),
             changes: this.changes.map((change) => { return change.toJson(); }),
@@ -59,7 +62,10 @@ class ItemCollection extends EventTarget implements I_Item
 
     selectItem(ID: number): ValidationMessage
     {
+        // find item with ID
         let item = this.items.find((item) => { return item.ID === ID; });
+
+        // if item exists set selected ID and give OK message
         if(item)
         {
             this.selected = ID;
@@ -67,6 +73,7 @@ class ItemCollection extends EventTarget implements I_Item
             return ValidationMessage.OK;
         }
 
+        // if item doesnt exist set selected -1 and given doesnt_exist message
         this.selected = -1;
         this.selectEvent();
         return ValidationMessage.DOESNT_EXIST;

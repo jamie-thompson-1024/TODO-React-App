@@ -24,8 +24,8 @@ class Change
         let change = new Change(
             obj.action, 
             {
-                oldValue: Item.fromJson(obj.oldValue), 
-                newValue: Item.fromJson(obj.newValue)
+                oldValue: obj.oldValue ? Item.fromJson(obj.oldValue) : undefined, 
+                newValue: obj.newValue ? Item.fromJson(obj.newValue) : undefined
             });
         change.time = obj.time;
         return change;

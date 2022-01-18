@@ -22,11 +22,8 @@ class Item implements I_Item
         this.tags = tags;
     }
 
-    static fromJson(obj?: ItemJson): Item | undefined
+    static fromJson(obj: ItemJson): Item
     {
-        if(!obj)
-            return undefined;
-
         let item = new Item(
             obj.ID, 
             obj.name, 

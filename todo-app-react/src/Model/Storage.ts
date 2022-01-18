@@ -22,7 +22,7 @@ class TodoStorage extends EventTarget
 
     load()
     {
-
+        // get localstorage save object and apply to this object create new data if none saved
         let localObject: TodoDataJson | undefined
         let localObjectString = localStorage['todoData'] as string | undefined;
         if(localObjectString)
@@ -30,6 +30,7 @@ class TodoStorage extends EventTarget
         this.settings = Settings.fromJson(localObject?.settings);
         this.itemCollection = ItemCollection.fromJson(localObject?.itemCollection);
         
+        // if new data created save to localstorage
         if(!localObject || !(localObject?.itemCollection) || !(localObject?.settings))
             this.save();
         
@@ -38,6 +39,7 @@ class TodoStorage extends EventTarget
 
     save()
     {
+        // stringify data and save in localstorage
         localStorage['todoData'] = JSON.stringify({
             settings: this.settings.toJson(),
             itemCollection: this.itemCollection.toJson()
