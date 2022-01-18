@@ -14,12 +14,22 @@
 .Settings-wipe
 {
     background-color: transparent;
-    border: 2px solid var(--theme-foreground-text);
-    border-radius: 10px;
-    color: var(--theme-foreground-text);
+    border: 2px solid red;
+    border-radius: 10000px;
+    color: red;
     font-size: 1em;
 
     width: max-content;
+}
+
+.Settings-wipe:hover
+{
+    background-color: #FF000055;
+}
+
+.Settings-wipe:focus
+{
+    background-color: #FF0000BB;
 }
 
 .Settings-button > img
