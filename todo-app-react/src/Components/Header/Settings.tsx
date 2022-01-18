@@ -14,12 +14,18 @@ function Settings()
     const cogSvgLogoPath = useCallback((theme: Theme) => { 
         return `./Assets/cog-logo-${theme.toString()}.svg`; 
     }, []);
+    
+    const themeSvgLogoPath = useCallback((theme: Theme) => { 
+        return `./Assets/theme-logo-${theme.toString()}.svg`; 
+    }, []);
 
     const [cogSvgLogo, setCogSvgLogo] = useState(cogSvgLogoPath(settings.theme));
+    const [themeSvgLogo, setThemeSvgLogo] = useState(themeSvgLogoPath(settings.theme));
 
     const updateTheme = useCallback(() => {
-        setCogSvgLogo(cogSvgLogoPath(settings.theme))
-    }, [cogSvgLogoPath, settings]);
+        setCogSvgLogo(cogSvgLogoPath(settings.theme));
+        setThemeSvgLogo(themeSvgLogoPath(settings.theme));
+    }, [cogSvgLogoPath, settings, themeSvgLogoPath]);
 
     const toggleMenu = useCallback(() => {
         setShowMenu(!showMenu);
@@ -50,7 +56,9 @@ function Settings()
                 <img src={cogSvgLogo} alt="cog"></img>
             </div>
             <div className={"Settings-menu" + ( showMenu ? "" : " Settings-hidden" )}>
-                <button className="Settings-themeButton" onClick={toggleTheme}>Theme</button>
+                <button className="Settings-themeButton" onClick={toggleTheme}>
+                    <img src={themeSvgLogo} alt="Theme"></img>
+                </button>
                 <button className="Settings-wipe" onClick={wipeData}>Wipe Data</button>
             </div>
         </div>
