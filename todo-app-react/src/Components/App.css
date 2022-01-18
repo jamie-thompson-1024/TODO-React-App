@@ -12,7 +12,7 @@
   font-family: Arial, Helvetica, sans-serif;
   color: var(--theme-foreground-text);
 
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 @media (min-width: 45em)

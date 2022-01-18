@@ -71,7 +71,12 @@ interface I_Item
 
 enum ValidationMessage
 {
-    OK, EMPTY, INVALID_CHAR, DOESNT_EXIST, ALREADY_EXISTS, ITEM_NOT_SELECTED
+    OK, 
+    EMPTY, 
+    INVALID_CHAR, 
+    DOESNT_EXIST, 
+    ALREADY_EXISTS, 
+    ITEM_NOT_SELECTED
 }
 
 enum ChangeAction

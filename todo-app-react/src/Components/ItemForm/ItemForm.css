@@ -17,6 +17,19 @@
     border: var(--theme-box-border);
 }
 
+.ItemForm-errorMessage
+{
+    color: red;
+}
+
+.ItemForm label
+{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    height: 1.3em;
+}
+
 .ItemForm > input
 {
     background-color: var(--theme-background-0);

@@ -1,4 +1,5 @@
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { ValidationMessage } from '../../Model/Todo';
 import TodoContext from '../TodoContext';
 import './ItemForm.css';
 
@@ -9,6 +10,8 @@ function ItemForm()
     const tagsRef = useRef<HTMLInputElement>(null);
 
     const [tags, setTags] = useState<string[]>([]);
+
+    const [errors, setErrors] = useState<ValidationMessage[]>([]);
 
     const TodoStorage = useContext(TodoContext);
 
@@ -32,6 +35,7 @@ function ItemForm()
             let msg = TodoStorage.itemCollection.createItem(
                 nameRef.current.value, descRef.current.value, tags.map((e) => e)
             );
+            setErrors(msg);
             console.log(msg);
 
             setTags([]);
@@ -39,7 +43,7 @@ function ItemForm()
             descRef.current.value = '';
             nameRef.current.value = '';
         }
-    }, [nameRef, descRef, tagsRef, TodoStorage, tags]);
+    }, [nameRef, descRef, tagsRef, TodoStorage, tags, setErrors]);
 
     useEffect(() => {
         if(tagsRef.current)
@@ -50,15 +54,27 @@ function ItemForm()
         <div className="ItemForm">
             <h2 className="ItemForm-Heading">Create Item</h2>
             <label htmlFor="ItemForm-nameInput">
-                Name: 
+                Name: <p className="ItemForm-errorMessage">{
+                    errors[0] === ValidationMessage.EMPTY ? "Required field" :
+                    errors[0] === ValidationMessage.INVALID_CHAR ? "Invalid Characters" :
+                    errors[0] === ValidationMessage.ALREADY_EXISTS ? "Name already taken" : ""
+                }</p>
             </label>
             <input id="ItemForm-nameInput" className="ItemForm-nameInput" ref={nameRef} type="text"></input>
             <label htmlFor="ItemForm-descInput">
-                Description: 
+                Description: <p className="ItemForm-errorMessage">{
+                    errors[1] === ValidationMessage.EMPTY ? "Required field" :
+                    errors[1] === ValidationMessage.INVALID_CHAR ? "Invalid Characters" :
+                    errors[1] === ValidationMessage.ALREADY_EXISTS ? "Name already taken" : ""
+                }</p>
             </label>
             <textarea id="ItemForm-descInput" className="ItemForm-descInput" ref={descRef}></textarea>
             <label htmlFor="ItemForm-tagInput">
-                Tags: 
+                Tags: <p className="ItemForm-errorMessage">{
+                    errors.some((e, i) => { 
+                        return (i >= 2) && (e === ValidationMessage.INVALID_CHAR) 
+                    }) ? "Invalid Characters" : ""
+                }</p>
             </label>
             <div className={ "ItemForm-tags" + (tags.length > 0) ? "" : "ItemForm-display-none" }>
                 {
