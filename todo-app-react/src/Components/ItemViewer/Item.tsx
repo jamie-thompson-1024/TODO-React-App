@@ -113,7 +113,6 @@ function Item(props: ItemProps)
                 <div className="Item-nameContainer">
                     { (() => { if(editMode === EditMode.TITLE && expand) {
                         return (<input 
-                            className="Item-tagInput" 
                             onClick={ stopPropigation }
                             ref={ nameRef } 
                             type="text"
@@ -140,7 +139,7 @@ function Item(props: ItemProps)
                 <div className="Item-descContainer">
                     { (() => { if(editMode === EditMode.DESC) {
                         return (<input 
-                            className="Item-tagInput" 
+                            className="Item-descInput" 
                             ref={ descRef } 
                             type="text"
                             defaultValue={props.desc}></input>);
@@ -182,7 +181,6 @@ function Item(props: ItemProps)
                 </div>
                 { (() => { if(editMode === EditMode.TAGS) {
                     return (<input 
-                        className="Item-tagInput" 
                         ref={ tagsRef } 
                         type="text"></input>);
                 }})() }
