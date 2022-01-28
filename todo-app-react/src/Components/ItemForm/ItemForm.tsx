@@ -76,7 +76,7 @@ function ItemForm()
                     }) ? "Invalid Characters" : ""
                 }</p>
             </label>
-            <div className={ "ItemForm-tags" + (tags.length > 0) ? "" : "ItemForm-display-none" }>
+            <div className={ "ItemForm-tags" + ((tags.length > 0) ? "" : " ItemForm-display-none") }>
                 {
                     tags.map((tag, i) => {
                         return (

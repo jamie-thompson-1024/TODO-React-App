@@ -40,9 +40,9 @@
 
 .theme-light
 {
-  --theme-background-0: #f7f7f7;
-  --theme-background-1: #e4e4e4;
-  --theme-background-2: #acacac;
+  --theme-background-0: #ffffff;
+  --theme-background-1: #f0f0f0;
+  --theme-background-2: #e0e0e0;
 
   --theme-foreground-text: #353535;
   --theme-foreground-border: #929292;
