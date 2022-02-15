@@ -1,9 +1,13 @@
 .SearchBar
 {
-    padding: 5px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     row-gap: 8px;
+
+    border-radius: 2px;
+    
+    background-color: var(--theme-background-1);
 }
 
 .SearchBar-bar
@@ -25,9 +29,14 @@
     margin: 0 1em 0 1em;
 }
 
+.SearchBar-SortOptions > select:focus
+{
+    outline: var(--theme-select-border) solid 1px;
+}
+
 .SearchBar-focus
 {
-    outline: var(--theme-foreground-text) solid 1px;
+    outline: var(--theme-select-border) solid 1px;
 }
 
 .SearchBar-undoRedoControls

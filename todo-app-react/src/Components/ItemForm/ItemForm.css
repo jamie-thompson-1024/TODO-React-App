@@ -7,14 +7,14 @@
     flex-direction: column;
     row-gap: 5px;
 
-    padding: 5px;
+    padding: 10px;
     margin: 5px;
 
     height: fit-content;
 
     background-color: var(--theme-background-1);
-    border-radius: 5px;
-    border: var(--theme-box-border);
+
+    border-radius: 2px;
 }
 
 .ItemForm-errorMessage
@@ -39,7 +39,7 @@
 
 .ItemForm > input:focus
 {
-    outline: var(--theme-foreground-text) solid 1px;
+    outline: var(--theme-select-border) solid 1px;
     border-radius: 3px;
 }
 
@@ -52,7 +52,7 @@
 
 .ItemForm > textarea:focus
 {
-    outline: var(--theme-foreground-text) solid 1px;
+    outline: var(--theme-select-border) solid 1px;
     border-radius: 3px;
 }
 

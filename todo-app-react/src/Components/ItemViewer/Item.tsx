@@ -153,37 +153,47 @@ function Item(props: ItemProps)
                         onClick={() => { 
                             setEditMode(
                                 editMode === EditMode.DESC ? EditMode.NONE : EditMode.DESC) 
-                }}><img src={editSvgLogo} alt="edit"/></div>
+                        }}>
+                            <img src={editSvgLogo} alt="edit"/>
+                    </div>
                </div>
-                <div className="Item-tags">
-                    {
-                        props.tags.map((tag, i) => {
-                            return (
-                                <div className="Item-tag" key={i}>
-                                    { tag }
-                                    { (() => { if(editMode === EditMode.TAGS) {
-                                        return (<div 
-                                            className="ItemForm-tag-del" 
-                                            onClick={() => { 
-                                                removeTag(tag);
-                                            }}>x</div>);
-                                    }})() }
-                                </div>
-                            )
-                        })
-                    }
-                    <div 
-                        className="Item-editTag" 
-                        onClick={() => { 
-                            setEditMode(
-                                editMode === EditMode.TAGS ? EditMode.NONE : EditMode.TAGS) 
-                        }}><img src={editSvgLogo} alt="edit"/></div>
+               <div className="Item-tagGridBox">
+                    <div className="Item-tags">
+                        {
+                            props.tags.map((tag, i) => {
+                                return (
+                                    <div className="Item-tag" key={i}>
+                                        { tag }
+                                        { (() => { if(editMode === EditMode.TAGS) {
+                                            return (<div 
+                                                className="ItemForm-tag-del" 
+                                                onClick={() => { 
+                                                    removeTag(tag);
+                                                }}>x</div>);
+                                        }})() }
+                                    </div>
+                                )
+                            })
+                        }
+                        <div 
+                            className="Item-editTag" 
+                            onClick={() => { 
+                                setEditMode(
+                                    editMode === EditMode.TAGS ? EditMode.NONE : EditMode.TAGS) 
+                            }}><img src={editSvgLogo} alt="edit"/></div>
+                    </div>
+                    { (() => { if(editMode === EditMode.TAGS) {
+                        return (
+                            <label htmlFor="Item-tagEditInput" className="Item-tagEditInput-Label">
+                                New Tag:
+                                <input 
+                                    id="Item-tagEditInput"
+                                    ref={ tagsRef } 
+                                    type="text">
+                                </input>
+                            </label>);
+                    }})() }
                 </div>
-                { (() => { if(editMode === EditMode.TAGS) {
-                    return (<input 
-                        ref={ tagsRef } 
-                        type="text"></input>);
-                }})() }
                 <div className="Item-options">
                     <button className="Item-options-del" onClick={deleteThis}>
                         Delete
