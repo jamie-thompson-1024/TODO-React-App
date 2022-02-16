@@ -37,7 +37,7 @@ function Item(props: ItemProps)
 
     const tagsRef = useRef<HTMLInputElement>(null);
     const nameRef = useRef<HTMLInputElement>(null);
-    const descRef = useRef<HTMLInputElement>(null);
+    const descRef = useRef<HTMLTextAreaElement>(null);
 
     const setName = useCallback(() => {
         if(itemCollection.selected === props.ID && editMode === EditMode.TITLE && nameRef.current)
@@ -138,11 +138,10 @@ function Item(props: ItemProps)
             <div className={"Item-expand" + ( expand ? "" : " Item-hidden" )}>
                 <div className="Item-descContainer">
                     { (() => { if(editMode === EditMode.DESC) {
-                        return (<input 
+                        return (<textarea 
                             className="Item-descInput" 
-                            ref={ descRef } 
-                            type="text"
-                            defaultValue={props.desc}></input>);
+                            ref={ descRef }
+                            defaultValue={props.desc}></textarea>);
                     }else{
                         return (
                             <p className="Item-desc">{ props.desc }</p>

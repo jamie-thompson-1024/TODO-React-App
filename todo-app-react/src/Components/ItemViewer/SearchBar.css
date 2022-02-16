@@ -35,6 +35,14 @@
     margin: 0 1em 0 1em;
 }
 
+.SearchBar-SortOptions > select
+{
+    background-color: var(--theme-background-0);
+    color: var(--theme-foreground-text);
+    border: var(--theme-input-border);
+    border-radius: 2px;
+}
+
 .SearchBar-SortOptions > select:focus
 {
     outline: var(--theme-select-border) solid 1px;
