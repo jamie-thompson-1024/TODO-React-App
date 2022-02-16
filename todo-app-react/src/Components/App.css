@@ -24,6 +24,29 @@
   }
 }
 
+.App input
+{
+  border-radius: 2px;
+}
+
+.App textarea
+{
+  border-radius: 2px;
+}
+
+.App button
+{
+  color: var(--theme-foreground-text);
+  border: 1px solid var(--theme-foreground-text);
+  border-radius: 3px;
+  background-color: transparent;
+}
+
+.App button:hover
+{
+  background-color: rgba(139, 139, 139, 0.411);
+}
+
 .theme-dark
 {
   --theme-background-0: #262626;
@@ -35,13 +58,16 @@
 
   --theme-select-border: #0496ff;
 
+  --theme-box-shadow: none;
   --theme-box-border: none;
+
+  --theme-input-border: 1px solid var(--theme-foreground-border);
 }
 
 .theme-light
 {
-  --theme-background-0: #ffffff;
-  --theme-background-1: #f0f0f0;
+  --theme-background-0: #fefefe;
+  --theme-background-1: #fefefe;
   --theme-background-2: #e0e0e0;
 
   --theme-foreground-text: #353535;
@@ -49,5 +75,8 @@
 
   --theme-select-border: #0496ff;
 
-  --theme-box-border: 1px solid var(--theme-foreground-border);
+  --theme-box-shadow: 1px 1px 2px 2px #cccccc;
+  --theme-box-border: none;
+  
+  --theme-input-border: 1px solid var(--theme-foreground-border);
 }

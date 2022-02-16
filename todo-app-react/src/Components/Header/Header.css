@@ -9,11 +9,6 @@
 
     padding: 10px;
     margin: 5px;
-
-    border: var(--theme-box-border);
-    border-radius: 5px;
-
-    background-color: var(--theme-background-1);
 }
 
 .Header-Title

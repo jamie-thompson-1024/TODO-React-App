@@ -1,9 +1,16 @@
 .SearchBar
 {
-    padding: 5px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     row-gap: 8px;
+
+    border-radius: 2px;
+    
+    background-color: var(--theme-background-1);
+
+    border: var(--theme-box-border);
+    box-shadow: var(--theme-box-shadow);
 }
 
 .SearchBar-bar
@@ -12,6 +19,9 @@
 
     background-color: var(--theme-background-0);
     color: var(--theme-foreground-text);
+    
+    border: var(--theme-box-border);
+    box-shadow: var(--theme-box-shadow);
 
     padding: 5px 10px 5px 10px;
 
@@ -25,9 +35,22 @@
     margin: 0 1em 0 1em;
 }
 
+.SearchBar-SortOptions > select
+{
+    background-color: var(--theme-background-0);
+    color: var(--theme-foreground-text);
+    border: var(--theme-input-border);
+    border-radius: 2px;
+}
+
+.SearchBar-SortOptions > select:focus
+{
+    outline: var(--theme-select-border) solid 1px;
+}
+
 .SearchBar-focus
 {
-    outline: var(--theme-foreground-text) solid 1px;
+    outline: var(--theme-select-border) solid 1px;
 }
 
 .SearchBar-undoRedoControls
@@ -62,6 +85,11 @@
     width: 2.5em;
     height: 2.5em;
 
-    background-color: var(--theme-background-0);
-    border: none;
+    background-color: transparent !important;
+    border: none !important;
+}
+
+.SearchBar-searchButton:hover
+{
+    background-color: transparent !important;
 }

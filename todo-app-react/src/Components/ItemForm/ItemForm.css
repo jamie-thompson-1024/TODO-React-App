@@ -7,14 +7,17 @@
     flex-direction: column;
     row-gap: 5px;
 
-    padding: 5px;
-    margin: 5px;
+    padding: 10px;
+    margin: 10px;
 
     height: fit-content;
 
     background-color: var(--theme-background-1);
-    border-radius: 5px;
+
+    border-radius: 2px;
+
     border: var(--theme-box-border);
+    box-shadow: var(--theme-box-shadow);
 }
 
 .ItemForm-errorMessage
@@ -34,12 +37,12 @@
 {
     background-color: var(--theme-background-0);
     color: var(--theme-foreground-text);
-    border: none;
+    border: var(--theme-input-border);
 }
 
 .ItemForm > input:focus
 {
-    outline: var(--theme-foreground-text) solid 1px;
+    outline: var(--theme-select-border) solid 1px;
     border-radius: 3px;
 }
 
@@ -47,12 +50,12 @@
 {
     background-color: var(--theme-background-0);
     color: var(--theme-foreground-text);
-    border: none;
+    border: var(--theme-input-border);
 }
 
 .ItemForm > textarea:focus
 {
-    outline: var(--theme-foreground-text) solid 1px;
+    outline: var(--theme-select-border) solid 1px;
     border-radius: 3px;
 }
 
