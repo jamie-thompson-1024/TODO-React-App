@@ -8,13 +8,16 @@
     row-gap: 5px;
 
     padding: 10px;
-    margin: 5px;
+    margin: 10px;
 
     height: fit-content;
 
     background-color: var(--theme-background-1);
 
     border-radius: 2px;
+
+    border: var(--theme-box-border);
+    box-shadow: var(--theme-box-shadow);
 }
 
 .ItemForm-errorMessage
@@ -34,7 +37,7 @@
 {
     background-color: var(--theme-background-0);
     color: var(--theme-foreground-text);
-    border: none;
+    border: var(--theme-input-border);
 }
 
 .ItemForm > input:focus
@@ -47,7 +50,7 @@
 {
     background-color: var(--theme-background-0);
     color: var(--theme-foreground-text);
-    border: none;
+    border: var(--theme-input-border);
 }
 
 .ItemForm > textarea:focus

@@ -8,6 +8,9 @@
     border-radius: 2px;
     
     background-color: var(--theme-background-1);
+
+    border: var(--theme-box-border);
+    box-shadow: var(--theme-box-shadow);
 }
 
 .SearchBar-bar
@@ -16,6 +19,9 @@
 
     background-color: var(--theme-background-0);
     color: var(--theme-foreground-text);
+    
+    border: var(--theme-box-border);
+    box-shadow: var(--theme-box-shadow);
 
     padding: 5px 10px 5px 10px;
 
@@ -71,6 +77,11 @@
     width: 2.5em;
     height: 2.5em;
 
-    background-color: var(--theme-background-0);
-    border: none;
+    background-color: transparent !important;
+    border: none !important;
+}
+
+.SearchBar-searchButton:hover
+{
+    background-color: transparent !important;
 }

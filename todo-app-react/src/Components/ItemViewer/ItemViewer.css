@@ -4,12 +4,13 @@
     grid-column: 1 / 2;
 
     margin: 5px;
+    padding: 5px;
     
     overflow-y: visible;
     
     display: flex;
     flex-direction: column;
-    row-gap: 10px;
+    row-gap: 15px;
 }
 
 @media (min-width: 45em)

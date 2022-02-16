@@ -13,10 +13,10 @@
 
 .Settings-wipe
 {
-    background-color: transparent;
-    border: 2px solid red;
-    border-radius: 10000px;
-    color: red;
+    background-color: transparent !important;
+    border: 2px solid red !important;
+    border-radius: 2px !important;
+    color: red !important;
     font-size: 1em;
 
     width: max-content;
@@ -24,12 +24,12 @@
 
 .Settings-wipe:hover
 {
-    background-color: #FF000055;
+    background-color: #FF000055 !important;
 }
 
 .Settings-wipe:focus
 {
-    background-color: #FF0000BB;
+    background-color: #FF0000BB !important;
 }
 
 .Settings-button > img
@@ -40,10 +40,15 @@
 
 .Settings-themeButton
 {
-    background-color: transparent;
-    border: none;
+    background-color: transparent !important;
+    border: none !important;
 
     width: 5em;
+}
+
+.Settings-themeButton:hover
+{
+    background-color: transparent !important;
 }
 
 .Settings-menu
