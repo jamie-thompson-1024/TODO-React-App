@@ -200,10 +200,10 @@ function Item(props: ItemProps)
                         Delete
                     </button>
                     <span>
-                        Date Created: {new Date(props.dateCreated).toLocaleDateString('en-NZ')}
+                        Created: {new Date(props.dateCreated).toLocaleDateString('en-NZ')}
                     </span>
                     <span>
-                        Date Modified: {new Date(props.dateModified).toLocaleDateString('en-NZ')}
+                        Modified: {new Date(props.dateModified).toLocaleDateString('en-NZ')}
                     </span>
                 </div>
             </div>
