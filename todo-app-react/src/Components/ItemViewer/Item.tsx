@@ -10,6 +10,8 @@ interface ItemProps
     name: string,
     desc: string,
     tags: string[],
+    dateCreated: number,
+    dateModified: number,
     state: boolean,
 }
 
@@ -197,6 +199,12 @@ function Item(props: ItemProps)
                     <button className="Item-options-del" onClick={deleteThis}>
                         Delete
                     </button>
+                    <span>
+                        Date Created: {new Date(props.dateCreated).toLocaleDateString('en-NZ')}
+                    </span>
+                    <span>
+                        Date Modified: {new Date(props.dateModified).toLocaleDateString('en-NZ')}
+                    </span>
                 </div>
             </div>
         </div>

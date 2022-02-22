@@ -30,7 +30,9 @@ function ItemList()
                         name={item.name}
                         desc={item.description}
                         tags={item.tags}
-                        state={item.completed} />;
+                        state={item.completed}
+                        dateCreated={item.creationTime}
+                        dateModified={item.lastModifiedTime} />;
                 })
             }
         </div>
